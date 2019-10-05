@@ -15,6 +15,7 @@ namespace A9MTE_Stys.ViewModels
         public DelegateCommand<MenuItem> OnNavigateCommand { get; set; }
         public List<MenuItem> MenuList { get; set; } = new List<MenuItem> { new MenuItem { Name = "Home", IconSource = "home.svg", TargetType = typeof(HomePage) },
                                                                             new MenuItem { Name = "Chuck Jokes API", IconSource = "restapi.svg", TargetType = typeof(ChuckJokesPage) },
+                                                                            new MenuItem { Name = "Tronald Dump API", IconSource = "trump.svg", TargetType = typeof(TronaldDumpPage) },
                                                                             new MenuItem { Name = "Settings", IconSource = "settings.svg", TargetType = typeof(SettingsPage) } };
 
         private MenuItem selectedPage;

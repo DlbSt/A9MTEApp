@@ -9063,7 +9063,10 @@ namespace A9MTE_Stys.Droid
 			public const int tooltip_frame_light = 2131165506;
 			
 			// aapt resource value: 0x7F070143
-			public const int utbikona400 = 2131165507;
+			public const int trump = 2131165507;
+			
+			// aapt resource value: 0x7F070144
+			public const int utbikona400 = 2131165508;
 			
 			static Drawable()
 			{

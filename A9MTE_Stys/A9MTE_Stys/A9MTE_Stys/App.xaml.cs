@@ -31,6 +31,7 @@ namespace A9MTE_Stys
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IJokeService, JokeService>();
+            containerRegistry.Register<ITronaldDumpService, TronaldDumpService>();
             containerRegistry.Register<IDatabaseService, DatabaseService>();
             containerRegistry.Register<ISettingsService, SettingsService>();
 
@@ -38,7 +39,10 @@ namespace A9MTE_Stys
             containerRegistry.RegisterForNavigation<MasterDetailedPage, MasterDetailedPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<ChuckJokesPage, ChuckJokesPageViewModel>();
+            containerRegistry.RegisterForNavigation<TronaldDumpPage, TronaldDumpPageViewModel>();
+            containerRegistry.RegisterForNavigation<TronaldDumpMemePage, TronaldDumpMemePageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<TronaldDumpQuotesPage, TronaldDumpQuotesPageViewModel>();
         }
     }
 }

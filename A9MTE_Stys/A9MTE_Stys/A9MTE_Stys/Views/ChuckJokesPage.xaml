@@ -6,12 +6,11 @@
              xmlns:behaviors="clr-namespace:A9MTE_Stys.Behaviors"
              xmlns:converters="clr-namespace:A9MTE_Stys.Converters"
              xmlns:enums="clr-namespace:A9MTE_Stys.Enums"
-             xmlns:context="clr-namespace:ContextMenu.Views;assembly=ContextMenu"
              prism:ViewModelLocator.AutowireViewModel="True"
              Visual="Material"
              x:Name="RestAPIContentPage"
              x:Class="A9MTE_Stys.Views.ChuckJokesPage"
-             Title="Rest API">
+             Title="Chuck Norris Jokes">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:JokeHeaderConverter x:Key="JokeHeaderConverter" />
