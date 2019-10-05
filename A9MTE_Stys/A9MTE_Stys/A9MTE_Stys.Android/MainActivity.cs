@@ -1,8 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using ImageCircle.Forms.Plugin.Droid;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
+using Xamarin.Forms.PancakeView.Droid;
 
 namespace A9MTE_Stys.Droid
 {
@@ -17,7 +20,13 @@ namespace A9MTE_Stys.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
+            FormsMaterial.Init(this, bundle);
+            ImageCircleRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
             LoadApplication(new App(new AndroidInitializer()));
+
+            PancakeViewRenderer.Init();
         }
     }
 

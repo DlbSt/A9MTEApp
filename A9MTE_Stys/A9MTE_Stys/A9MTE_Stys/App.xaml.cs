@@ -4,6 +4,8 @@ using A9MTE_Stys.ViewModels;
 using A9MTE_Stys.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using A9MTE_Stys.Services;
+using A9MTE_Stys.Interfaces;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace A9MTE_Stys
@@ -23,13 +25,20 @@ namespace A9MTE_Stys
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("MasterDetailedPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IJokeService, JokeService>();
+            containerRegistry.Register<IDatabaseService, DatabaseService>();
+            containerRegistry.Register<ISettingsService, SettingsService>();
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<MasterDetailedPage, MasterDetailedPageViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<ChuckJokesPage, ChuckJokesPageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
         }
     }
 }

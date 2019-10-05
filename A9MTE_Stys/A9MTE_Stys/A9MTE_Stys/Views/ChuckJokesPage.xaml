@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:behaviors="clr-namespace:A9MTE_Stys.Behaviors"
+             xmlns:converters="clr-namespace:A9MTE_Stys.Converters"
+             xmlns:enums="clr-namespace:A9MTE_Stys.Enums"
+             xmlns:context="clr-namespace:ContextMenu.Views;assembly=ContextMenu"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Visual="Material"
+             x:Name="RestAPIContentPage"
+             x:Class="A9MTE_Stys.Views.ChuckJokesPage"
+             Title="Rest API">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:JokeHeaderConverter x:Key="JokeHeaderConverter" />
+            <converters:CategoryEnumToIntegerConverter x:Key="CategoryEnumToIntegerConverter" />
+            <converters:CategoryEnumToStringConverter x:Key="CategoryEnumToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        <StackLayout HeightRequest="50" MinimumHeightRequest="50" Margin="10, 10, 0, 0" Orientation="Horizontal">
+            <Label Text="Select category: "
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   FontAttributes="Bold" />
+            <Picker Grid.Column="0"
+                    ItemsSource="{Binding Categories, Mode=OneWay}"
+                    SelectedIndex="{Binding ShowCategory, Converter={StaticResource CategoryEnumToIntegerConverter}, Mode=TwoWay}"
+                    Margin="0, 0, 10, 0"                 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    TextColor="{StaticResource FaiUtbYellow}"
+                    Visual="Material"/>
+        </StackLayout>
+        <BoxView Margin="10, 0, 10, 0" 
+                             HeightRequest="2" 
+                             BackgroundColor="LightGray" />
+        <ListView ItemsSource="{Binding FilteredCollection}"
+                  Margin="10, 0, 10, 0"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True"
+                  SelectionMode="None">
+            <ListView.Behaviors>
+                <behaviors:ListViewScrollBehavior />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}" Text="Delete" IsDestructive="true" CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
+                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="FillAndExpand"
+                                           Margin="5"
+                                           BackgroundGradientAngle="120"
+                                           BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
+                                           BackgroundGradientEndColor="LightSteelBlue"
+                                           IsClippedToBounds="False"                                       
+                                           HasShadow="False">
+                            <yummy:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer                             
+                                    Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
+                                    CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
+                                    NumberOfTapsRequired="2"/>
+                            </yummy:PancakeView.GestureRecognizers>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
+                                    <Image Source="{Binding Icon}" />
+                                    <StackLayout Orientation="Vertical" Spacing="2">
+                                        <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="Title"
+                                           TextColor="White"  
+                                           Margin="10, 0, 0, 0"/>
+                                        <Label                                  
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                           FontAttributes="Bold"
+                                           FontSize="Subtitle"
+                                           TextColor="White"         
+                                           Margin="10, 0, 0, 0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Category: " FontSize="Subtitle" FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <Label x:Name="JokeLabel"
+                                       Text="{Binding Joke}"
+                                       TextColor="White"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       Margin="10, 0, 10, 10"/>
+                            </StackLayout>
+                        </yummy:PancakeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <BoxView Margin="10, 0, 10, 0" 
+                 HeightRequest="2" 
+                 BackgroundColor="LightGray" />
+        <Grid HeightRequest="50" MinimumHeightRequest="50" Margin="0, 0, 0, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Margin="10, 0, 0, 0"
+                    Text="Add joke!" 
+                    Command="{Binding OnAddJokeCommand}" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Visual="Material" />
+            <Picker Grid.Column="1"
+                    ItemsSource="{Binding Categories}"
+                    SelectedIndex="{Binding Category, Converter={StaticResource CategoryEnumToIntegerConverter}, Mode=TwoWay}"
+                    Margin="0, 0, 10, 0"                 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    TextColor="{StaticResource FaiUtbYellow}"
+                    Visual="Material"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>
