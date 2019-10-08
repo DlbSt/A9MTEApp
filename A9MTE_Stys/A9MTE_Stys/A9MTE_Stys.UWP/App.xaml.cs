@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ImageCircle.Forms.Plugin.UWP;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -14,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Xamarin.Forms.PancakeView.UWP;
 
 namespace A9MTE_Stys.UWP
 {
@@ -53,6 +56,13 @@ namespace A9MTE_Stys.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                var rendererAssemblies = new[]
+                {
+                    typeof(ImageCircleRenderer).GetTypeInfo().Assembly
+                };
+                Xamarin.Forms.Forms.Init(e, rendererAssemblies);
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+                PancakeViewRenderer.Init();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

@@ -55,7 +55,20 @@
                     <!-- <Label Text="Showcase application for OPC UA and MQTT communication" FontSize="Subtitle" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="White" Margin="10, 0, 10, 0" /> -->
                 </StackLayout>
                 <StackLayout Grid.Row="1" Padding="0" Margin="0">
-                    <BoxView BackgroundColor="White" HeightRequest="5" />
+                    <BoxView>
+                        <BoxView.BackgroundColor>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="Android" Value="White" />
+                                <On Platform="Windows" Value="Red" />
+                            </OnPlatform>
+                        </BoxView.BackgroundColor>
+                        <BoxView.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="Android" Value="5" />
+                                <On Platform="Windows" Value="0" />
+                            </OnPlatform>
+                        </BoxView.HeightRequest>
+                    </BoxView>
                 </StackLayout>
                 <StackLayout Grid.Row="2" BackgroundColor="White" Padding="0" Margin="0">
 
