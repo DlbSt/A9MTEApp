@@ -104,6 +104,15 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\chuck-norris.png" />
+    <Content Include="Assets\chucknorris.png" />
+    <Content Include="Assets\faipictext.png" />
+    <Content Include="Assets\faitext.png" />
+    <Content Include="Assets\home.svg" />
+    <Content Include="Assets\restapi.svg" />
+    <Content Include="Assets\settings.svg" />
+    <Content Include="Assets\trump.svg" />
+    <Content Include="Assets\utbikona400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
