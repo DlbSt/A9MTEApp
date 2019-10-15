@@ -108,7 +108,8 @@ namespace A9MTE_Stys.ViewModels
         {
             if (ShowCategory == CategoryEnum.All)
             {
-                FilteredCollection.Clear();
+                //FilteredCollection.Clear();
+                FilteredCollection = new ObservableCollection<JokeItem>();
 
                 foreach (var item in JokeList)
                 {
@@ -117,7 +118,8 @@ namespace A9MTE_Stys.ViewModels
             }
             else
             {
-                FilteredCollection.Clear();
+                //FilteredCollection.Clear();
+                FilteredCollection = new ObservableCollection<JokeItem>();
 
                 foreach (var item in JokeList.Where(joke => joke.Category == ShowCategory))
                 {

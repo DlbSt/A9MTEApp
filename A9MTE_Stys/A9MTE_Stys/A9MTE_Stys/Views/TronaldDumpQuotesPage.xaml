@@ -14,8 +14,156 @@
         <converters:TrumpHeaderConverter x:Key="TrumpHeaderConverter" />
         <converters:TagsToStringConverter x:Key="TagsToStringConverter" />
     </ContentPage.Resources>
-    <StackLayout>
-        <ListView ItemsSource="{Binding Quotes}"
+    <StackLayout HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand"
+                 Orientation="Vertical">
+        <CollectionView ItemsSource="{Binding Quotes}"
+                        Margin="10, 10, 10, 0"
+                        SelectedItem="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                                               HorizontalOptions="FillAndExpand"
+                                               VerticalOptions="FillAndExpand"
+                                               Margin="5"
+                                               BackgroundGradientAngle="90"
+                                               IsClippedToBounds="False"                                       
+                                               HasShadow="False">
+                            <yummy:PancakeView.BackgroundGradientStops>
+                                <yummy:GradientStopCollection>
+                                    <yummy:GradientStop Color="Black" Offset="0" />
+                                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                                </yummy:GradientStopCollection>
+                            </yummy:PancakeView.BackgroundGradientStops>
+                            <yummy:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer                             
+                                        Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference QuoteContentPage}}"
+                                        CommandParameter="{Binding Text, Source={x:Reference Name=TrumpQuoteLabel}}"
+                                        NumberOfTapsRequired="2"/>
+                                <SwipeGestureRecognizer
+                                        Direction="Left,Right"
+                                        Command="{Binding BindingContext.OnDeleteQuoteCommand, Source={x:Reference QuoteContentPage}}" 
+                                        CommandParameter="{Binding .}" />
+                            </yummy:PancakeView.GestureRecognizers>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
+                                    <Image Source="{Binding Icon}"
+                                               HeightRequest="60"
+                                               WidthRequest="60"/>
+                                    <StackLayout Orientation="Vertical" Spacing="2">
+                                        <Label Text="{Binding Id, Converter={StaticResource TrumpHeaderConverter}}"                                   
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold"
+                                               FontSize="Title"
+                                               TextColor="White"  
+                                               Margin="10, 0, 0, 0"/>
+                                        <Label                                  
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Start"
+                                               FontAttributes="Bold"
+                                               FontSize="Subtitle"
+                                               TextColor="White"         
+                                               Margin="10, 0, 0, 0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Tags: " FontSize="Subtitle" FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Tags, Converter={StaticResource TagsToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <Label x:Name="TrumpQuoteLabel"
+                                           Text="{Binding Quote}"
+                                           TextColor="White"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           Margin="10, 0, 10, 10"/>
+                            </StackLayout>
+                        </yummy:PancakeView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- <CollectionView ItemsSource="{Binding FilteredCollection}"
+                        Margin="10, 0, 10, 0"    
+                        BackgroundColor="Red"
+                        ItemsUpdatingScrollMode="KeepLastItemInView"
+                        SelectedItem="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="FillAndExpand"
+                                           Margin="5"
+                                           BackgroundGradientAngle="90"
+                                           IsClippedToBounds="False"                                       
+                                           HasShadow="False">
+                            <yummy:PancakeView.BackgroundGradientStops>
+                                <yummy:GradientStopCollection>
+                                    <yummy:GradientStop Color="Black" Offset="0" />
+                                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                                </yummy:GradientStopCollection>
+                            </yummy:PancakeView.BackgroundGradientStops>
+                            <yummy:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer                             
+                                    Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference QuoteContentPage}}"
+                                    CommandParameter="{Binding Text, Source={x:Reference Name=TrumpQuoteLabel}}"
+                                    NumberOfTapsRequired="2"/>
+                                <SwipeGestureRecognizer
+                                        Direction="Left,Right"
+                                        Command="{Binding BindingContext.OnDeleteQuoteCommand, Source={x:Reference QuoteContentPage}}" 
+                                        CommandParameter="{Binding .}" />
+                            </yummy:PancakeView.GestureRecognizers>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" 
+                                             Margin="10, 10, 10, 0">
+                                    <Image Source="{Binding Icon}"
+                                           HeightRequest="60"
+                                           WidthRequest="60"/>
+                                    <StackLayout Orientation="Vertical" 
+                                                 Spacing="2">
+                                        <Label Text="{Binding Id, Converter={StaticResource TrumpHeaderConverter}}"                                   
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="Title"
+                                           TextColor="White"  
+                                           Margin="10, 0, 0, 0"/>
+                                        <Label                                  
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                           FontAttributes="Bold"
+                                           FontSize="Subtitle"
+                                           TextColor="White"         
+                                           Margin="10, 0, 0, 0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Tags: " 
+                                                          FontSize="Subtitle" 
+                                                          FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Tags, Converter={StaticResource TagsToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <Label x:Name="TrumpQuoteLabel"
+                                       Text="{Binding Quote}"
+                                       TextColor="White"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       Margin="10, 0, 10, 10"/>
+                            </StackLayout>
+                        </yummy:PancakeView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
+        <!-- <ListView ItemsSource="{Binding Quotes}"
                   Margin="5, 0, 5, 0"
                   SeparatorVisibility="None"
                   CachingStrategy="RecycleElement"
@@ -34,8 +182,6 @@
                                            BackgroundGradientAngle="90"
                                            IsClippedToBounds="False"                                       
                                            HasShadow="False">
-                            <!-- BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
-                                           BackgroundGradientEndColor="LightSteelBlue" -->
                             <yummy:PancakeView.BackgroundGradientStops>
                                 <yummy:GradientStopCollection>
                                     <yummy:GradientStop Color="Black" Offset="0" />
@@ -88,11 +234,15 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
-        <Button Visual="Material"
-                Text="Request new quote"
-                Margin="5"
-                BackgroundColor="{StaticResource FaiUtbYellow}"
-                Command="{Binding OnRequestNewQuoteCommand}" />
+        </ListView>-->
+        <Grid HeightRequest="50" MinimumHeightRequest="50" Margin="0, 0, 0, 10">
+            <Button Visual="Material"
+                    Text="Request new quote"
+                    Margin="10, 0, 10, 0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnRequestNewQuoteCommand}" />
+        </Grid>
     </StackLayout>
 </ContentPage>
