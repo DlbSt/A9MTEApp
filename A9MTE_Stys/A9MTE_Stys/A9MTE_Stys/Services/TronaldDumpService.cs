@@ -19,8 +19,19 @@ namespace A9MTE_Stys.Services
         public async Task<TrumpQuote> GetJokeAsync()
         {
             HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = new TimeSpan(0, 0, 3);
             var uri = new Uri(string.Format(jokeUrl, string.Empty));
-            var response = await httpClient.GetAsync(uri);
+
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await httpClient.GetAsync(uri);
+            }
+            catch
+            {
+                return null;
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -36,8 +47,19 @@ namespace A9MTE_Stys.Services
         public async Task<ImageSource> GetMemeAsync()
         {
             HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = new TimeSpan(0, 0, 1);
             var uri = new Uri(string.Format(memeUrl, string.Empty));
-            var response = await httpClient.GetAsync(uri);
+
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await httpClient.GetAsync(uri);
+            }
+            catch
+            {
+                return null;
+            }
 
             if (response.IsSuccessStatusCode)
             {

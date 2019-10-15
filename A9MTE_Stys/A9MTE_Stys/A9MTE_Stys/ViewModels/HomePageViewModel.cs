@@ -8,7 +8,7 @@ namespace A9MTE_Stys.ViewModels
     public class HomePageViewModel : BindableBase
     {
         public HomePageViewModel()
-        {
+        { 
 
         }
     }

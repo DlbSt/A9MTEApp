@@ -2,13 +2,39 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+             xmlns:res="clr-namespace:PanCardView.Resources;assembly=PanCardView"
+             xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="A9MTE_Stys.Views.TronaldDumpMemePage"
              Visual="Material"
-             Title="Memes">
+             Title="Trump Memes">
     <StackLayout>
-        <ListView ItemsSource="{Binding ImageCollection}"
+        <cards:CarouselView ItemsSource="{Binding ImageCollection}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+            <cards:CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="FillAndExpand"
+                                           Margin="5"
+                                           BackgroundGradientAngle="90"
+                                           BackgroundColor="Black"
+                                           IsClippedToBounds="False"                                       
+                                           HasShadow="False">
+                            <!-- BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
+                                           BackgroundGradientEndColor="LightSteelBlue" -->
+                            <Image Source="{Binding .}" />
+                        </yummy:PancakeView>
+                    </ContentView>
+                </DataTemplate>
+            </cards:CarouselView.ItemTemplate>
+        </cards:CarouselView>
+        <!-- <ListView ItemsSource="{Binding ImageCollection}"
                   Margin="5, 0, 5, 0"
                   SeparatorVisibility="None"
                   HasUnevenRows="True"
@@ -16,6 +42,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        
                         <yummy:PancakeView HasShadow="False"
                                            CornerRadius="5"
                                            Margin="5"
@@ -27,7 +54,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView> -->
         <Button Text="Add random meme" 
             Visual="Material" 
             Margin="5, 5, 5, 5"

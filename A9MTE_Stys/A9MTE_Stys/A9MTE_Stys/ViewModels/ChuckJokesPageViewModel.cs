@@ -16,6 +16,7 @@ namespace A9MTE_Stys.ViewModels
         private readonly IJokeService _jokeService;
         private readonly IDatabaseService _databaseService;
         private readonly ISettingsService _settingsService;
+        private readonly IToastMessage _toastMessage;
 
         private Random random = new Random();
         private string url = "https://api.chucknorris.io/jokes/random?category=";
@@ -71,11 +72,12 @@ namespace A9MTE_Stys.ViewModels
             set { SetProperty(ref scroll, value); }
         }
 
-        public ChuckJokesPageViewModel(IJokeService jokeService, IDatabaseService databaseService, ISettingsService settingsService)
+        public ChuckJokesPageViewModel(IJokeService jokeService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
         {
             _jokeService = jokeService;
             _databaseService = databaseService;
             _settingsService = settingsService;
+            _toastMessage = toastMessage;
 
             OnAddJokeCommand = new DelegateCommand(AddJokeAsync, CanAddJokeAsync);
             OnCellTappedCommand = new DelegateCommand<string>(ReadJokeAsync, CanReadJokeAsync);
@@ -92,13 +94,13 @@ namespace A9MTE_Stys.ViewModels
 
             UpdateBindedCollection();
 
-            //if (!IsConnected()) _toastProvider.ShowMessage("Internet not connected!");
+            if (!IsConnected()) _toastMessage.ShowToast("Not connected to internet!");
         }
 
         private async void LoadUrl()
         {
             var urlString = await _settingsService.LoadSettings(SettingsEnum.JokeUrl.ToString());
-            if (string.IsNullOrEmpty(url)) await _settingsService.SaveSettings(SettingsEnum.JokeUrl.ToString(), url);
+            if (string.IsNullOrEmpty(urlString)) await _settingsService.SaveSettings(SettingsEnum.JokeUrl.ToString(), url);
             else url = urlString;
         }
 
@@ -126,8 +128,11 @@ namespace A9MTE_Stys.ViewModels
 
         public async void ReadJokeAsync(string joke)
         {
-            if (joke != null) await TextToSpeech.SpeakAsync(joke);
-            //else _toastProvider.ShowMessage("No joke was selected!");
+            if (joke != null)
+            {
+                await TextToSpeech.SpeakAsync(joke);
+            }
+            else _toastMessage.ShowToast("No joke was selected!");
         }
 
         private bool CanReadJokeAsync(string joke)
@@ -161,7 +166,7 @@ namespace A9MTE_Stys.ViewModels
                 UpdateBindedCollection();
                 _databaseService.AddJoke(jokeItem);
             }
-            //else _toastProvider.ShowMessage("Joke couldn't be added!");
+            else _toastMessage.ShowToast("Joke couldn't be added!");
         }
 
         public void DeleteJoke(JokeItem joke)

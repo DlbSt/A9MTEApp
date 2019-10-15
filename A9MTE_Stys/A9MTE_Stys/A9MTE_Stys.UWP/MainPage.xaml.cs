@@ -1,4 +1,6 @@
-﻿using Prism;
+﻿using A9MTE_Stys.Interfaces;
+using A9MTE_Stys.UWP.Services;
+using Prism;
 using Prism.Ioc;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace A9MTE_Stys.UWP
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.Register<IToastMessage, ToastMessage>();
         }
     }
 }

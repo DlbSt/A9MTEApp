@@ -11,5 +11,6 @@ namespace A9MTE_Stys.Model
         public int Id { get; set; }
         public string Quote { get; set; }
         public List<string> Tags { get; set; }
+        public string Icon { get; set; }
     }
 }

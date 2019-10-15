@@ -56,11 +56,17 @@
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="FillAndExpand"
                                            Margin="5"
-                                           BackgroundGradientAngle="120"
-                                           BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
-                                           BackgroundGradientEndColor="LightSteelBlue"
+                                           BackgroundGradientAngle="90"
                                            IsClippedToBounds="False"                                       
                                            HasShadow="False">
+                                           <!-- BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
+                                           BackgroundGradientEndColor="LightSteelBlue" -->
+                            <yummy:PancakeView.BackgroundGradientStops>
+                                <yummy:GradientStopCollection>
+                                    <yummy:GradientStop Color="Black" Offset="0" />
+                                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                                </yummy:GradientStopCollection>
+                            </yummy:PancakeView.BackgroundGradientStops>
                             <yummy:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer                             
                                     Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"

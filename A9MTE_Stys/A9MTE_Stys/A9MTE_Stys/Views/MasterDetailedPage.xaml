@@ -9,9 +9,8 @@
                   xmlns:converters="clr-namespace:A9MTE_Stys.Converters"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   Visual="Material"
-                  x:Class="A9MTE_Stys.Views.MasterDetailedPage" MasterBehavior="Popover">
-
-    
+                  x:Class="A9MTE_Stys.Views.MasterDetailedPage" 
+                  MasterBehavior="Popover">
     <MasterDetailPage.Master>
         <ContentPage Title="Menu"
                      Visual="Material">

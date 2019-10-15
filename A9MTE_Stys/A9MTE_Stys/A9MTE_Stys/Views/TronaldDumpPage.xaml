@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:prism="http://prismlibrary.com"
             xmlns:views="clr-namespace:A9MTE_Stys.Views"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="A9MTE_Stys.Views.TronaldDumpPage"
+            android:TabbedPage.IsSwipePagingEnabled="False"
             Title="Tronald Dump API">
     <TabbedPage.Children>
         <views:TronaldDumpMemePage />

@@ -13,6 +13,9 @@ namespace A9MTE_Stys.ViewModels
     public class TronaldDumpMemePageViewModel : BindableBase
     {
         private readonly ITronaldDumpService _tronaldDumpService;
+        private readonly IDatabaseService _databaseService;
+        private readonly ISettingsService _settingsService;
+        private readonly IToastMessage _toastMessage;
 
         private const int trumpImageCount = 5;
 
@@ -25,13 +28,14 @@ namespace A9MTE_Stys.ViewModels
             set { SetProperty(ref imageCollection, value); }
         }
 
-        public TronaldDumpMemePageViewModel(ITronaldDumpService tronaldDumpService)
+        public TronaldDumpMemePageViewModel(ITronaldDumpService tronaldDumpService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
         {
             _tronaldDumpService = tronaldDumpService;
+            _databaseService = databaseService;
+            _settingsService = settingsService;
+            _toastMessage = toastMessage;
 
             OnAddMemeCommand = new DelegateCommand(AddMemeAsync, CanAddMemeAsync);
-
-            //GetRandomQuote();
         }
 
         public bool CanAddMemeAsync()
@@ -42,14 +46,16 @@ namespace A9MTE_Stys.ViewModels
         public async void AddMemeAsync()
         {
             var value = await _tronaldDumpService.GetMemeAsync();
-            if (ImageCollection.Count == trumpImageCount) ImageCollection.RemoveAt(0);
-            ImageCollection.Add(value);
-        }
+            if (value != null)
+            {
+                if (ImageCollection.Count == trumpImageCount) ImageCollection.RemoveAt(0);
+                ImageCollection.Add(value);
+            }
+            else
+            {
+                _toastMessage.ShowToast("Not possible to get meme!");
+            }
 
-        private async void GetRandomQuote()
-        {
-            var value = await _tronaldDumpService.GetJokeAsync();
-            Debug.WriteLine(value);
         }
     }
 }
