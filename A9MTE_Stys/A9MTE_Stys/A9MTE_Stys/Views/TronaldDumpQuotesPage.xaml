@@ -18,6 +18,7 @@
         <ListView ItemsSource="{Binding Quotes}"
                   Margin="5, 0, 5, 0"
                   SeparatorVisibility="None"
+                  CachingStrategy="RecycleElement"
                   HasUnevenRows="True"
                   SelectionMode="None">
             <ListView.ItemTemplate>

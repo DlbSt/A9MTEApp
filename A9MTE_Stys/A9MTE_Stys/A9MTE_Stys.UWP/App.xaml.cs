@@ -55,6 +55,7 @@ namespace A9MTE_Stys.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
                 Xamarin.Forms.Forms.Init(e);
                 var rendererAssemblies = new[]
                 {
