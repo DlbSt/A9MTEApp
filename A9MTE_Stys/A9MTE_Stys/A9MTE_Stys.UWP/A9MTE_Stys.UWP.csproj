@@ -105,7 +105,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\chuck-norris.png" />
     <Content Include="Assets\chucknorris.png" />
     <Content Include="Assets\faipictext.png" />
     <Content Include="Assets\faitext.png" />
@@ -120,6 +119,9 @@
     <Content Include="Assets\trumpface.png" />
     <Content Include="Assets\trump.svg" />
     <Content Include="Assets\utbikona400.png" />
+    <Content Include="chucknorris.png" />
+    <Content Include="faipictext.png" />
+    <Content Include="faitext.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreenOld.scale-200.png" />
@@ -128,6 +130,8 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="trumpface.png" />
+    <Content Include="utbikona400.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
