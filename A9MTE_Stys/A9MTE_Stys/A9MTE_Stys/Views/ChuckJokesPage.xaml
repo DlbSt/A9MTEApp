@@ -67,12 +67,16 @@
                                         <TapGestureRecognizer                             
                                         Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
                                         CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
-                                        NumberOfTapsRequired="2"/>
+                                        NumberOfTapsRequired="2" />
                                         <SwipeGestureRecognizer
                                         Direction="Left,Right"
                                         Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}"
                                         CommandParameter="{Binding .}" />
                                     </yummy:PancakeView.GestureRecognizers>
+                                    <yummy:PancakeView.Behaviors>
+                                        <behaviors:TappedItemAnimationBehavior />
+                                        <behaviors:SlideItemAnimationBehavior />
+                                    </yummy:PancakeView.Behaviors>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" 
                                              Margin="10, 10, 10, 0">
@@ -158,6 +162,9 @@
                                         CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
                                         NumberOfTapsRequired="2"/>
                                     </yummy:PancakeView.GestureRecognizers>
+                                    <yummy:PancakeView.Behaviors>
+                                        <behaviors:TappedItemAnimationBehavior/>
+                                    </yummy:PancakeView.Behaviors>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
                                             <Image Source="{Binding Icon}" />
