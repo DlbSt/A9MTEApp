@@ -16,121 +16,6 @@
             <converters:JokeHeaderConverter x:Key="JokeHeaderConverter" />
             <converters:CategoryEnumToIntegerConverter x:Key="CategoryEnumToIntegerConverter" />
             <converters:CategoryEnumToStringConverter x:Key="CategoryEnumToStringConverter" />
-
-            <DataTemplate x:Key="ListViewAndroid">
-                <ViewCell>
-                    <ViewCell.ContextActions>
-                        <MenuItem Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}" Text="Delete" IsDestructive="true" CommandParameter="{Binding .}" />
-                    </ViewCell.ContextActions>
-                    <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
-                                           HorizontalOptions="FillAndExpand"
-                                           VerticalOptions="FillAndExpand"
-                                           Margin="5"
-                                           BackgroundGradientAngle="90"
-                                           IsClippedToBounds="False"                                       
-                                           HasShadow="False">
-                        <yummy:PancakeView.BackgroundGradientStops>
-                            <yummy:GradientStopCollection>
-                                <yummy:GradientStop Color="Black" Offset="0" />
-                                <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
-                            </yummy:GradientStopCollection>
-                        </yummy:PancakeView.BackgroundGradientStops>
-                        <yummy:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer                             
-                                        Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
-                                        CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
-                                        NumberOfTapsRequired="2"/>
-                        </yummy:PancakeView.GestureRecognizers>
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
-                                <Image Source="{Binding Icon}" />
-                                <StackLayout Orientation="Vertical" Spacing="2">
-                                    <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
-                                           HorizontalOptions="Start"
-                                           VerticalOptions="Center"
-                                           FontAttributes="Bold"
-                                           FontSize="Title"
-                                           TextColor="White"  
-                                           Margin="10, 0, 0, 0"/>
-                                    <Label HorizontalOptions="Start"
-                                           VerticalOptions="Start"
-                                           FontAttributes="Bold"
-                                           FontSize="Subtitle"
-                                           TextColor="White"         
-                                           Margin="10, 0, 0, 0">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Category: " FontSize="Subtitle" FontAttributes="Bold"/>
-                                                <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </StackLayout>
-                            </StackLayout>
-                            <Label x:Name="JokeLabel"
-                                           Text="{Binding Joke}"
-                                           TextColor="White"
-                                           HorizontalOptions="StartAndExpand"
-                                           VerticalOptions="CenterAndExpand"
-                                           Margin="10, 0, 10, 10"/>
-                        </StackLayout>
-                    </yummy:PancakeView>
-                </ViewCell>
-            </DataTemplate>
-
-            <DataTemplate x:Key="ListViewUWP">
-                <ViewCell>
-                    <ViewCell.ContextActions>
-                        <MenuItem Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}" Text="Delete" IsDestructive="true" CommandParameter="{Binding .}" />
-                    </ViewCell.ContextActions>
-                    <Frame CornerRadius="5" 
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="FillAndExpand"
-                           Margin="5"
-                           IsClippedToBounds="False"                                       
-                           HasShadow="False">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer                             
-                                        Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
-                                        CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
-                                        NumberOfTapsRequired="2"/>
-                        </Frame.GestureRecognizers>
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
-                                <Image Source="{Binding Icon}" />
-                                <StackLayout Orientation="Vertical" Spacing="2">
-                                    <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
-                                           HorizontalOptions="Start"
-                                           VerticalOptions="Center"
-                                           FontAttributes="Bold"
-                                           FontSize="Title"
-                                           TextColor="White"  
-                                           Margin="10, 0, 0, 0"/>
-                                    <Label HorizontalOptions="Start"
-                                           VerticalOptions="Start"
-                                           FontAttributes="Bold"
-                                           FontSize="Subtitle"
-                                           TextColor="White"         
-                                           Margin="10, 0, 0, 0">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Category: " FontSize="Subtitle" FontAttributes="Bold"/>
-                                                <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </StackLayout>
-                            </StackLayout>
-                            <Label x:Name="JokeLabel"
-                                   Text="{Binding Joke}"
-                                   TextColor="White"
-                                   HorizontalOptions="StartAndExpand"
-                                   VerticalOptions="CenterAndExpand"
-                                   Margin="10, 0, 10, 10"/>
-                        </StackLayout>
-                    </Frame>
-                </ViewCell>
-            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="FillAndExpand"
@@ -153,123 +38,168 @@
         <BoxView Margin="10, 0, 10, 0" 
                              HeightRequest="2" 
                              BackgroundColor="LightGray" />
-        <CollectionView ItemsSource="{Binding FilteredCollection}"
+
+        <OnPlatform x:TypeArguments="View">
+            
+            <On Platform="UWP">
+                <!-- #region UWPCollectionView -->
+                <CollectionView ItemsSource="{Binding FilteredCollection}"
                         Margin="10, 0, 10, 0"
                         ItemsUpdatingScrollMode="KeepLastItemInView"
                         SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="FillAndExpand"
                                            Margin="5"
                                            BackgroundGradientAngle="90"
                                            IsClippedToBounds="False"                                       
                                            HasShadow="False">
-                            <yummy:PancakeView.BackgroundGradientStops>
-                                <yummy:GradientStopCollection>
-                                    <yummy:GradientStop Color="Black" Offset="0" />
-                                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
-                                </yummy:GradientStopCollection>
-                            </yummy:PancakeView.BackgroundGradientStops>
-                            <yummy:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer                             
+                                    <yummy:PancakeView.BackgroundGradientStops>
+                                        <yummy:GradientStopCollection>
+                                            <yummy:GradientStop Color="Black" Offset="0" />
+                                            <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                                        </yummy:GradientStopCollection>
+                                    </yummy:PancakeView.BackgroundGradientStops>
+                                    <yummy:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer                             
                                         Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
                                         CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
                                         NumberOfTapsRequired="2"/>
-                                <SwipeGestureRecognizer
+                                        <SwipeGestureRecognizer
                                         Direction="Left,Right"
                                         Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}"
                                         CommandParameter="{Binding .}" />
-                            </yummy:PancakeView.GestureRecognizers>
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal" 
+                                    </yummy:PancakeView.GestureRecognizers>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal" 
                                              Margin="10, 10, 10, 0">
-                                    <Image Source="{Binding Icon}" />
-                                    <StackLayout Orientation="Vertical" 
+                                            <Image Source="{Binding Icon}" />
+                                            <StackLayout Orientation="Vertical" 
                                                  Spacing="2">
-                                        <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
+                                                <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
                                                HorizontalOptions="Start"
                                                VerticalOptions="Center"
                                                FontAttributes="Bold"
                                                FontSize="Title"
                                                TextColor="White"  
                                                Margin="10, 0, 0, 0"/>
-                                        <Label                                  
+                                                <Label                                  
                                                HorizontalOptions="Start"
                                                VerticalOptions="Start"
                                                FontAttributes="Bold"
                                                FontSize="Subtitle"
                                                TextColor="White"         
                                                Margin="10, 0, 0, 0">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Category: " 
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Category: " 
                                                           FontSize="Subtitle" 
                                                           FontAttributes="Bold"/>
-                                                    <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" 
+                                                            <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" 
                                                           FontSize="Subtitle" 
                                                           FontAttributes="None"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </StackLayout>
-                                </StackLayout>
-                                <Label x:Name="JokeLabel"
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Label x:Name="JokeLabel"
                                            Text="{Binding Joke}"
                                            TextColor="White"
                                            HorizontalOptions="StartAndExpand"
                                            VerticalOptions="CenterAndExpand"
                                            Margin="10, 0, 10, 10"/>
-                            </StackLayout>
-                        </yummy:PancakeView>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <!-- <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                                    </StackLayout>
+                                </yummy:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!-- #endregion -->
+            </On>
+            <On Platform="Android">
+                <!-- #region AndroidListView -->
+                <ListView ItemsSource="{Binding FilteredCollection}"
+                          Margin="10, 0, 10, 0"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True"
+                          SelectionMode="None">
+                    <ListView.Behaviors>
+                        <behaviors:ListViewScrollBehavior />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Command="{Binding BindingContext.OnDeleteJokeCommand, Source={x:Reference RestAPIContentPage}}" 
+                                              CommandParameter="{Binding .}"
+                                              Text="Delete" 
+                                              IsDestructive="true" />
+                                </ViewCell.ContextActions>
+                                <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="FillAndExpand"
                                            Margin="5"
-                                           BackgroundGradientAngle="90">
-                            <yummy:PancakeView.BackgroundGradientStops>
-                                <yummy:GradientStopCollection>
-                                    <yummy:GradientStop Color="Black" Offset="0" />
-                                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
-                                </yummy:GradientStopCollection>
-                            </yummy:PancakeView.BackgroundGradientStops>
-                            <Label x:Name="JokeLabel"
+                                           BackgroundGradientAngle="90"
+                                           IsClippedToBounds="False"                                       
+                                           HasShadow="False">
+                                    <yummy:PancakeView.BackgroundGradientStops>
+                                        <yummy:GradientStopCollection>
+                                            <yummy:GradientStop Color="Black" Offset="0" />
+                                            <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                                        </yummy:GradientStopCollection>
+                                    </yummy:PancakeView.BackgroundGradientStops>
+                                    <yummy:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer                             
+                                        Command="{Binding Path=BindingContext.OnCellTappedCommand, Source={x:Reference RestAPIContentPage}}"
+                                        CommandParameter="{Binding Text, Source={x:Reference Name=JokeLabel}}"
+                                        NumberOfTapsRequired="2"/>
+                                    </yummy:PancakeView.GestureRecognizers>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
+                                            <Image Source="{Binding Icon}" />
+                                            <StackLayout Orientation="Vertical" Spacing="2">
+                                                <Label Text="{Binding Id, Converter={StaticResource JokeHeaderConverter}}"                                   
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="Title"
+                                           TextColor="White"  
+                                           Margin="10, 0, 0, 0"/>
+                                                <Label HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                           FontAttributes="Bold"
+                                           FontSize="Subtitle"
+                                           TextColor="White"         
+                                           Margin="10, 0, 0, 0">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Category: " FontSize="Subtitle" FontAttributes="Bold"/>
+                                                            <Span Text="{Binding Category, Converter={StaticResource CategoryEnumToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Label x:Name="JokeLabel"
                                            Text="{Binding Joke}"
                                            TextColor="White"
                                            HorizontalOptions="StartAndExpand"
                                            VerticalOptions="CenterAndExpand"
                                            Margin="10, 0, 10, 10"/>
-                        </yummy:PancakeView>
-                    </ViewCell>
-                </DataTemplate>
-            </CollectionView.ItemTemplate> -->
-            
-        </CollectionView>
-                        
-        
-        <!-- <ListView ItemsSource="{Binding FilteredCollection}"
-                  Margin="10, 0, 10, 0"
-                  SeparatorVisibility="None"
-                  HasUnevenRows="True"
-                  SelectionMode="None">
-            <ListView.Behaviors>
-                <behaviors:ListViewScrollBehavior />
-            </ListView.Behaviors>
-            <ListView.ItemTemplate>
-                <OnPlatform x:TypeArguments="DataTemplate">
-                    <On Platform="Android" Value="{StaticResource ListViewAndroid}"/>
-                    <On Platform="UWP" Value="{StaticResource ListViewUWP}" />
-                </OnPlatform>
-            </ListView.ItemTemplate>
-        </ListView> -->
+                                    </StackLayout>
+                                </yummy:PancakeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!-- #endregion -->
+            </On>
+        </OnPlatform>
+                            
         <BoxView Margin="10, 0, 10, 0" 
                  HeightRequest="2" 
                  BackgroundColor="LightGray" />

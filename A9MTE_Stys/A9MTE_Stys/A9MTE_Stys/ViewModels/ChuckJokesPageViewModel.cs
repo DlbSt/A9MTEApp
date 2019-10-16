@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace A9MTE_Stys.ViewModels
 {
@@ -166,7 +167,7 @@ namespace A9MTE_Stys.ViewModels
                 };
                 JokeList.Add(jokeItem);
                 UpdateBindedCollection();
-                _databaseService.AddJoke(jokeItem);
+                if (Device.RuntimePlatform == Device.Android) _databaseService.AddJoke(jokeItem);
             }
             else _toastMessage.ShowToast("Joke couldn't be added!");
         }
@@ -177,7 +178,7 @@ namespace A9MTE_Stys.ViewModels
 
             JokeList.Remove(joke);
             UpdateBindedCollection();
-            _databaseService.DeleteJoke(joke);
+            if (Device.RuntimePlatform == Device.Android) _databaseService.DeleteJoke(joke);
         }
         public bool CanAddJokeAsync() => IsConnected();
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
