@@ -56,7 +56,8 @@ namespace A9MTE_Stys.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-                Xamarin.Forms.Forms.Init(e);
+                Rg.Plugins.Popup.Popup.Init();
+                Xamarin.Forms.Forms.Init(e, Rg.Plugins.Popup.Popup.GetExtraAssemblies());
                 var rendererAssemblies = new[]
                 {
                     typeof(ImageCircleRenderer).GetTypeInfo().Assembly

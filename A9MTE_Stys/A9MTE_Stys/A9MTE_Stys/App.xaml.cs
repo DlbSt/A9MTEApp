@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using A9MTE_Stys.Services;
 using A9MTE_Stys.Interfaces;
+using Prism.Plugin.Popups;
+using A9MTE_Stys.Views.PopUps;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace A9MTE_Stys
@@ -30,6 +32,8 @@ namespace A9MTE_Stys
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterPopupNavigationService();
+
             containerRegistry.Register<IJokeService, JokeService>();
             containerRegistry.Register<ITronaldDumpService, TronaldDumpService>();
             containerRegistry.Register<IDatabaseService, DatabaseService>();
@@ -43,6 +47,7 @@ namespace A9MTE_Stys
             containerRegistry.RegisterForNavigation<TronaldDumpMemePage, TronaldDumpMemePageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<TronaldDumpQuotesPage, TronaldDumpQuotesPageViewModel>();
+            containerRegistry.RegisterForNavigation<TextPickerPage, TextPickerPageViewModel>();
         }
     }
 }

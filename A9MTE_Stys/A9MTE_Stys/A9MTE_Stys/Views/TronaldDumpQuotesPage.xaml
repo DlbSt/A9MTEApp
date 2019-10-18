@@ -51,6 +51,9 @@
                                         Command="{Binding BindingContext.OnDeleteQuoteCommand, Source={x:Reference QuoteContentPage}}" 
                                         CommandParameter="{Binding .}" />
                                     </yummy:PancakeView.GestureRecognizers>
+                                    <yummy:PancakeView.Behaviors>
+                                        <behaviors:TappedItemAnimationBehavior />
+                                    </yummy:PancakeView.Behaviors>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
                                             <Image Source="{Binding Icon}"
@@ -97,7 +100,7 @@
             <On Platform="Android">
                 <!-- #region AndroidListView -->
                 <ListView ItemsSource="{Binding Quotes}"
-                          Margin="10, 0, 10, 0"
+                          Margin="10, 10, 10, 0"
                           SeparatorVisibility="None"
                           HasUnevenRows="True"
                           SelectionMode="None">
@@ -133,6 +136,9 @@
                                         Command="{Binding BindingContext.OnDeleteQuoteCommand, Source={x:Reference QuoteContentPage}}" 
                                         CommandParameter="{Binding .}" />
                                     </yummy:PancakeView.GestureRecognizers>
+                                    <yummy:PancakeView.Behaviors>
+                                        <behaviors:TappedItemAnimationBehavior/>
+                                    </yummy:PancakeView.Behaviors>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
                                             <Image Source="{Binding Icon}"

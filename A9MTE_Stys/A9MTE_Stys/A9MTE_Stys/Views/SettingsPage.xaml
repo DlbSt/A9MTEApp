@@ -8,8 +8,35 @@
              Visual="Material">
     <TableView Intent="Settings" Visual="Material">
         <TableRoot>
-            <TableSection Title="Jokes" TextColor="{StaticResource FaiUtbYellow}">
-                <TextCell Text="Name" Detail="{Binding JokeUrl, Mode=TwoWay}" />
+            <TableSection Title="Chuck Norris API"
+                          TextColor="{StaticResource FaiUtbYellow}">
+                <TextCell Text="Server Address"
+                          Detail="{Binding JokeUrl, Mode=TwoWay}" 
+                          Command="{Binding ShowJokeAddressPopUpCommand}"
+                          CommandParameter="{Binding BindingContext.Text}" />
+            </TableSection>
+            <TableSection Title="Tronald Dump API"
+                          TextColor="{StaticResource FaiUtbYellow}">
+                <ViewCell>
+                    <Label Text="Meme Settings"
+                           Margin="15, 0, 15, 0"
+                           FontSize="Small"
+                           VerticalTextAlignment="Center" />
+                </ViewCell>
+                <TextCell Text="Server Address"
+                          Detail="{Binding JokeUrl, Mode=TwoWay}" 
+                          Command="{Binding ShowJokeAddressPopUpCommand}"
+                          CommandParameter="ChuckJoke" />
+                <ViewCell>
+                    <Label Text="Quote Settings"
+                           Margin="15, 0, 15, 0"
+                           FontSize="Small"
+                           VerticalTextAlignment="Center" />
+                </ViewCell>
+                <TextCell Text="Server Address"
+                          Detail="{Binding JokeUrl, Mode=TwoWay}" 
+                          Command="{Binding ShowJokeAddressPopUpCommand}"
+                          CommandParameter="ChuckJoke" />
             </TableSection>
         </TableRoot>
     </TableView>

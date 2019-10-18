@@ -75,7 +75,6 @@
                                     </yummy:PancakeView.GestureRecognizers>
                                     <yummy:PancakeView.Behaviors>
                                         <behaviors:TappedItemAnimationBehavior />
-                                        <behaviors:SlideItemAnimationBehavior />
                                     </yummy:PancakeView.Behaviors>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" 

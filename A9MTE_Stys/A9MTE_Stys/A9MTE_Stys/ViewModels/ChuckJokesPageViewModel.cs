@@ -109,8 +109,8 @@ namespace A9MTE_Stys.ViewModels
         {
             if (ShowCategory == CategoryEnum.All)
             {
-                //FilteredCollection.Clear();
-                FilteredCollection = new ObservableCollection<JokeItem>();
+                if (Device.RuntimePlatform == Device.Android) FilteredCollection.Clear();
+                else FilteredCollection = new ObservableCollection<JokeItem>();
 
                 foreach (var item in JokeList)
                 {
@@ -119,8 +119,8 @@ namespace A9MTE_Stys.ViewModels
             }
             else
             {
-                //FilteredCollection.Clear();
-                FilteredCollection = new ObservableCollection<JokeItem>();
+                if (Device.RuntimePlatform == Device.Android) FilteredCollection.Clear();
+                else FilteredCollection = new ObservableCollection<JokeItem>();
 
                 foreach (var item in JokeList.Where(joke => joke.Category == ShowCategory))
                 {
@@ -165,20 +165,23 @@ namespace A9MTE_Stys.ViewModels
                     RestId = joke.icon_url,
                     Category = actualCategory
                 };
+
                 JokeList.Add(jokeItem);
                 UpdateBindedCollection();
-                if (Device.RuntimePlatform == Device.Android) _databaseService.AddJoke(jokeItem);
+
+                if (Device.RuntimePlatform == Device.Android) await _databaseService.AddJoke(jokeItem);
             }
             else _toastMessage.ShowToast("Joke couldn't be added!");
         }
 
-        public void DeleteJoke(JokeItem joke)
+        public async void DeleteJoke(JokeItem joke)
         {
             Scroll = ScrollEnum.NoScroll;
 
             JokeList.Remove(joke);
             UpdateBindedCollection();
-            if (Device.RuntimePlatform == Device.Android) _databaseService.DeleteJoke(joke);
+
+            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteJoke(joke);
         }
         public bool CanAddJokeAsync() => IsConnected();
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;

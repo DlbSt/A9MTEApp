@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="A9MTE_Stys.Views.PopUps.TextPickerPage"
+    Visual="Material">
+    <Frame VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="300"
+           HeightRequest="140"
+           MinimumWidthRequest="300"
+           MinimumHeightRequest="140"
+           BorderColor="{StaticResource FaiUtbYellow}">
+        <StackLayout HorizontalOptions="FillAndExpand" 
+                     VerticalOptions="FillAndExpand"
+                     BackgroundColor="Transparent">
+            <Label Text="SERVER ADDRESS"
+                   TextColor="Black"
+                   Margin="15, 5, 0, 0"
+                   FontSize="Large" />
+            <Entry Visual="Material"
+                   Margin="15, 0, 15, 0"
+                   FontSize="Small"
+                   BackgroundColor="{StaticResource FaiUtbYellow}"
+                   TextColor="White"/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="15, 0, 15, 0">
+                <Button Text="OK"
+                    Visual="Material" 
+                    HorizontalOptions="EndAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"/>
+                <Button Text="Cancel"
+                    Visual="Material" 
+                    HorizontalOptions="End"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"/>
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+  
+</pages:PopupPage>

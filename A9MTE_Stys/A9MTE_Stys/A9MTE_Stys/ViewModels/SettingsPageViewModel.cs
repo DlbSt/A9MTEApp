@@ -1,6 +1,8 @@
 ﻿using A9MTE_Stys.Enums;
 using A9MTE_Stys.Interfaces;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
@@ -12,14 +14,26 @@ namespace A9MTE_Stys.ViewModels
     {
         private readonly IPageDialogService _dialogService;
         private readonly ISettingsService _settingsService;
+        private readonly INavigationService _navigationService;
 
-        public SettingsPageViewModel(IPageDialogService dialogService, ISettingsService settingsService)
+        public DelegateCommand<string> ShowJokeAddressPopUpCommand { get; set; }
+        public SettingsPageViewModel(INavigationService navigationService,
+                                     IPageDialogService dialogService, 
+                                     ISettingsService settingsService)
         {
+            _navigationService = navigationService;
             _dialogService = dialogService;
             _settingsService = settingsService;
+
+            ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAdressPopUpWindowAsync);
             //_dialogService.DisplayActionSheetAsync("Test");
             //_dialogService.DisplayAlertAsync("Test", "Ups", "KK", "KANCEL");
             LoadSettings();
+        }
+
+        private async void ShowJokeAdressPopUpWindowAsync(string param)
+        {
+            await _navigationService.NavigateAsync("TextPickerPage", new INavigationParameters { { "url", param } });
         }
 
         private string jokeUrl = "https://api.chucknorris.io/jokes/random?category=";

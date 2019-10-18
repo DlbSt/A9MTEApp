@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace A9MTE_Stys.ViewModels
 {
@@ -47,29 +48,39 @@ namespace A9MTE_Stys.ViewModels
             OnCellTappedCommand = new DelegateCommand<string>(ReadQuoteAsync, CanReadQuoteAsync);
             OnDeleteQuoteCommand = new DelegateCommand<QuoteItem>(DeleteQuote);
 
+            var dbQuotes = _databaseService.GetQuotes();
+
+            if (dbQuotes != null)
+            {
+                foreach (var item in dbQuotes) Quotes.Add(item);
+            }
+
             if (!IsConnected()) _toastMessage.ShowToast("Not connected to internet!");
         }
 
         public async void RequestQuote()
         {
-            var quote = await _tronaldDumpService.GetJokeAsync();
+            var quotes = await _tronaldDumpService.GetJokeAsync();
 
-            if (quote != null)
+            if (quotes != null)
             {
                 var id = 1;
 
-                if (Quotes.Count > 0) id = Quotes.Count + 1;
+                if (Quotes.Count > 0) id = Quotes.Last().Id + 1;
 
-                Quotes.Add(new QuoteItem {
+                var quote = new QuoteItem
+                {
                     Id = id,
-                    Quote = quote.value,
-                    Tags = quote.tags,
-                    Icon = "trumpface.png" });
+                    Quote = quotes.value,
+                    Tags = quotes.tags,
+                    Icon = "trumpface.png"
+                };
+
+                Quotes.Add(quote);
+
+                if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(quote);
             }
-            else
-            {
-                _toastMessage.ShowToast("Not possible to get quote!");
-            }
+            else _toastMessage.ShowToast("Not possible to get quote!");
         }
 
         public bool CanRequestQuote()
@@ -89,12 +100,14 @@ namespace A9MTE_Stys.ViewModels
             else return false;
         }
 
-        public void DeleteQuote(QuoteItem quote)
+        public async void DeleteQuote(QuoteItem quote)
         {
             Scroll = ScrollEnum.NoScroll;
 
             if (quote != null) Quotes.Remove(quote);
             else _toastMessage.ShowToast("No quote was selected!");
+
+            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteQuote(quote);
         }
 
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
