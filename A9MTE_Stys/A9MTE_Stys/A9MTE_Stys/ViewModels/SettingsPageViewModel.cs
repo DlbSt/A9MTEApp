@@ -17,23 +17,48 @@ namespace A9MTE_Stys.ViewModels
         private readonly INavigationService _navigationService;
 
         public DelegateCommand<string> ShowJokeAddressPopUpCommand { get; set; }
+        public DelegateCommand<string> ShowMemeAddressPopUpCommand { get; set; }
+        public DelegateCommand<string> ShowQuoteAddressPopUpCommand { get; set; }
         public SettingsPageViewModel(INavigationService navigationService,
-                                     IPageDialogService dialogService, 
+                                     IPageDialogService dialogService,
                                      ISettingsService settingsService)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
             _settingsService = settingsService;
 
-            ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAdressPopUpWindowAsync);
-            //_dialogService.DisplayActionSheetAsync("Test");
-            //_dialogService.DisplayAlertAsync("Test", "Ups", "KK", "KANCEL");
+            ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAddressPopUpWindowAsync);
+            ShowMemeAddressPopUpCommand = new DelegateCommand<string>(ShowMemeAddressPopUpWindowAsync);
+            ShowQuoteAddressPopUpCommand = new DelegateCommand<string>(ShowQuoteAddressPopUpWindowAsync);
+            
             LoadSettings();
         }
 
-        private async void ShowJokeAdressPopUpWindowAsync(string param)
+        private async void ShowJokeAddressPopUpWindowAsync(string param)
         {
-            await _navigationService.NavigateAsync("TextPickerPage", new INavigationParameters { { "url", param } });
+            await _navigationService.NavigateAsync("TextPickerPage", new NavigationParameters
+            {
+                { "type", PopUpTypeEnum.ChuckJokes.ToString() },
+                { "url", param }
+            });
+        }
+
+        private async void ShowMemeAddressPopUpWindowAsync(string param)
+        {
+            await _navigationService.NavigateAsync("TextPickerPage", new NavigationParameters
+            {
+                { "type", PopUpTypeEnum.TrumpMemes.ToString() },
+                { "url", param }
+            });
+        }
+
+        private async void ShowQuoteAddressPopUpWindowAsync(string param)
+        {
+            await _navigationService.NavigateAsync("TextPickerPage", new NavigationParameters
+            {
+                { "type", PopUpTypeEnum.TrumpQuotes.ToString() },
+                { "url", param }
+            });
         }
 
         private string jokeUrl = "https://api.chucknorris.io/jokes/random?category=";
@@ -44,6 +69,28 @@ namespace A9MTE_Stys.ViewModels
             {
                 SetProperty(ref jokeUrl, value);
                 SaveSettings(SettingsEnum.JokeUrl.ToString(), value);
+            }
+        }
+
+        private string memeUrl = "https://api.tronalddump.io/random/meme";
+        public string MemeUrl
+        {
+            get { return memeUrl; }
+            set
+            {
+                SetProperty(ref memeUrl, value);
+                SaveSettings(SettingsEnum.MemeUrl.ToString(), value);
+            }
+        }
+
+        private string quoteUrl = "https://api.tronalddump.io/random/quote";
+        public string QuoteUrl
+        {
+            get { return quoteUrl; }
+            set
+            {
+                SetProperty(ref quoteUrl, value);
+                SaveSettings(SettingsEnum.QuoteUrl.ToString(), value);
             }
         }
 

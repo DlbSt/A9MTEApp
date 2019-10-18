@@ -13,14 +13,14 @@ namespace A9MTE_Stys.Services
 {
     public class TronaldDumpService : ITronaldDumpService
     {
-        private string jokeUrl = "https://api.tronalddump.io/random/quote";
+        private string quoteUrl = "https://api.tronalddump.io/random/quote";
         private string memeUrl = "https://api.tronalddump.io/random/meme";
 
         public async Task<TrumpQuote> GetJokeAsync()
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(0, 0, 3);
-            var uri = new Uri(string.Format(jokeUrl, string.Empty));
+            var uri = new Uri(string.Format(quoteUrl, string.Empty));
 
             HttpResponseMessage response = null;
 

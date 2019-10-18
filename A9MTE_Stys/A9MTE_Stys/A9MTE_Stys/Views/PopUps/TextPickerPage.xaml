@@ -19,23 +19,28 @@
                      BackgroundColor="Transparent">
             <Label Text="SERVER ADDRESS"
                    TextColor="Black"
-                   Margin="15, 5, 0, 0"
+                   Margin="0, 5, 0, 0"
+                   Visual="Material"
                    FontSize="Large" />
             <Entry Visual="Material"
-                   Margin="15, 0, 15, 0"
-                   FontSize="Small"
+                   Margin="0, 0, 0, 0"
+                   FontSize="Small"                  
+                   VerticalOptions="CenterAndExpand"
+                   Text="{Binding Url, Mode=TwoWay}"
                    BackgroundColor="{StaticResource FaiUtbYellow}"
                    TextColor="White"/>
             <StackLayout Orientation="Horizontal"
-                         Margin="15, 0, 15, 0">
+                         Margin="5, 0, 0, 0">
                 <Button Text="OK"
                     Visual="Material" 
                     HorizontalOptions="EndAndExpand"
-                    BackgroundColor="{StaticResource FaiUtbYellow}"/>
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnOKClickedCommand}"/>
                 <Button Text="Cancel"
                     Visual="Material" 
                     HorizontalOptions="End"
-                    BackgroundColor="{StaticResource FaiUtbYellow}"/>
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnCancelClickedCommand}" />
             </StackLayout>
         </StackLayout>
     </Frame>

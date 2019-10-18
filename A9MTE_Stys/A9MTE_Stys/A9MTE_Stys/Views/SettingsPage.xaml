@@ -11,9 +11,10 @@
             <TableSection Title="Chuck Norris API"
                           TextColor="{StaticResource FaiUtbYellow}">
                 <TextCell Text="Server Address"
+                          x:Name="CNEntry"
                           Detail="{Binding JokeUrl, Mode=TwoWay}" 
                           Command="{Binding ShowJokeAddressPopUpCommand}"
-                          CommandParameter="{Binding BindingContext.Text}" />
+                          CommandParameter="{Binding Source={x:Reference CNEntry}, Path=Detail}" />
             </TableSection>
             <TableSection Title="Tronald Dump API"
                           TextColor="{StaticResource FaiUtbYellow}">
@@ -24,9 +25,10 @@
                            VerticalTextAlignment="Center" />
                 </ViewCell>
                 <TextCell Text="Server Address"
-                          Detail="{Binding JokeUrl, Mode=TwoWay}" 
+                          x:Name="MemeEntry"
+                          Detail="{Binding MemeUrl, Mode=TwoWay}" 
                           Command="{Binding ShowJokeAddressPopUpCommand}"
-                          CommandParameter="ChuckJoke" />
+                          CommandParameter="{Binding Source={x:Reference MemeEntry}, Path=Detail}" />
                 <ViewCell>
                     <Label Text="Quote Settings"
                            Margin="15, 0, 15, 0"
@@ -34,9 +36,10 @@
                            VerticalTextAlignment="Center" />
                 </ViewCell>
                 <TextCell Text="Server Address"
-                          Detail="{Binding JokeUrl, Mode=TwoWay}" 
+                          x:Name="QuoteEntry"
+                          Detail="{Binding QuoteUrl, Mode=TwoWay}" 
                           Command="{Binding ShowJokeAddressPopUpCommand}"
-                          CommandParameter="ChuckJoke" />
+                          CommandParameter="{Binding Source={x:Reference QuoteEntry}, Path=Detail}" />
             </TableSection>
         </TableRoot>
     </TableView>

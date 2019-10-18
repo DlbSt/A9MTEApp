@@ -4,10 +4,9 @@ using System.Text;
 
 namespace A9MTE_Stys.Enums
 {
-    public enum SettingsEnum
+    public enum PopUpButtonEnum
     {
-        JokeUrl,
-        MemeUrl,
-        QuoteUrl
+        OK,
+        Cancel
     }
 }

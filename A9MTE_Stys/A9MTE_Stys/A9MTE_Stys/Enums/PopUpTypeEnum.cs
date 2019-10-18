@@ -4,10 +4,10 @@ using System.Text;
 
 namespace A9MTE_Stys.Enums
 {
-    public enum SettingsEnum
+    public enum PopUpTypeEnum
     {
-        JokeUrl,
-        MemeUrl,
-        QuoteUrl
+        ChuckJokes,
+        TrumpMemes,
+        TrumpQuotes
     }
 }
