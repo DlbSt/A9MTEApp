@@ -48,6 +48,8 @@ namespace A9MTE_Stys
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<TronaldDumpQuotesPage, TronaldDumpQuotesPageViewModel>();
             containerRegistry.RegisterForNavigation<TextPickerPage, TextPickerPageViewModel>();
+            containerRegistry.RegisterForNavigation<LicensePage, LicensePageViewModel>();
+            containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
         }
     }
 }

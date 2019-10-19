@@ -14,11 +14,20 @@ namespace A9MTE_Stys.ViewModels
 {
     public class TronaldDumpQuotesPageViewModel : BindableBase
     {
+        #region Services
         private readonly ITronaldDumpService _tronaldDumpService;
         private readonly IDatabaseService _databaseService;
         private readonly ISettingsService _settingsService;
         private readonly IToastMessage _toastMessage;
+        #endregion
 
+        #region Commands
+        public DelegateCommand OnRequestNewQuoteCommand { get; set; }
+        public DelegateCommand<string> OnCellTappedCommand { get; set; }
+        public DelegateCommand<QuoteItem> OnDeleteQuoteCommand { get; set; }
+        #endregion
+
+        #region Properties
         private ObservableCollection<QuoteItem> quotes = new ObservableCollection<QuoteItem>();
         public ObservableCollection<QuoteItem> Quotes
         {
@@ -32,10 +41,16 @@ namespace A9MTE_Stys.ViewModels
             get { return scroll; }
             set { SetProperty(ref scroll, value); }
         }
+        #endregion
 
-        public DelegateCommand OnRequestNewQuoteCommand { get; set; }
-        public DelegateCommand<string> OnCellTappedCommand { get; set; }
-        public DelegateCommand<QuoteItem> OnDeleteQuoteCommand { get; set; }
+        #region Fields
+        private string quoteUrl;
+        private const string apiErrorMessage = "API Url not valid!";
+        private const string commonErrorMessage = "Not possible to get quote!";
+        private const string selectErrorMessage = "No quote was selected!";
+        private const string notConnectedMessage = "Not connected to internet!";
+        private const string iconUrl = "trumpface.png";
+        #endregion
 
         public TronaldDumpQuotesPageViewModel(ITronaldDumpService tronaldDumpService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
         {
@@ -48,6 +63,8 @@ namespace A9MTE_Stys.ViewModels
             OnCellTappedCommand = new DelegateCommand<string>(ReadQuoteAsync, CanReadQuoteAsync);
             OnDeleteQuoteCommand = new DelegateCommand<QuoteItem>(DeleteQuote);
 
+            GetQuoteUrl();
+
             var dbQuotes = _databaseService.GetQuotes();
 
             if (dbQuotes != null)
@@ -55,32 +72,41 @@ namespace A9MTE_Stys.ViewModels
                 foreach (var item in dbQuotes) Quotes.Add(item);
             }
 
-            if (!IsConnected()) _toastMessage.ShowToast("Not connected to internet!");
+            if (!IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
         }
 
+        #region ListViewHandling
         public async void RequestQuote()
         {
-            var quotes = await _tronaldDumpService.GetJokeAsync();
-
-            if (quotes != null)
+            try
             {
-                var id = 1;
-
-                if (Quotes.Count > 0) id = Quotes.Last().Id + 1;
-
-                var quote = new QuoteItem
+                if (!string.IsNullOrEmpty(quoteUrl))
                 {
-                    Id = id,
-                    Quote = quotes.value,
-                    Tags = quotes.tags,
-                    Icon = "trumpface.png"
-                };
+                    var quotes = await _tronaldDumpService.GetJokeAsync(quoteUrl);
 
-                Quotes.Add(quote);
+                    if (quotes != null)
+                    {
+                        var id = 1;
 
-                if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(quote);
+                        if (Quotes.Count > 0) id = Quotes.Last().Id + 1;
+
+                        var quote = new QuoteItem
+                        {
+                            Id = id,
+                            Quote = quotes.value,
+                            Tags = quotes.tags,
+                            Icon = iconUrl
+                        };
+
+                        Quotes.Add(quote);
+
+                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(quote);
+                    }
+                    else _toastMessage.ShowToast(commonErrorMessage);
+                }
+                else _toastMessage.ShowToast(apiErrorMessage);
             }
-            else _toastMessage.ShowToast("Not possible to get quote!");
+            catch { _toastMessage.ShowToast(commonErrorMessage); }
         }
 
         public bool CanRequestQuote()
@@ -91,7 +117,7 @@ namespace A9MTE_Stys.ViewModels
         public async void ReadQuoteAsync(string quote)
         {
             if (quote != null) await TextToSpeech.SpeakAsync(quote);
-            else _toastMessage.ShowToast("No quote was selected!");
+            else _toastMessage.ShowToast(selectErrorMessage);
         }
 
         public bool CanReadQuoteAsync(string quote)
@@ -105,11 +131,19 @@ namespace A9MTE_Stys.ViewModels
             Scroll = ScrollEnum.NoScroll;
 
             if (quote != null) Quotes.Remove(quote);
-            else _toastMessage.ShowToast("No quote was selected!");
+            else _toastMessage.ShowToast(selectErrorMessage);
 
             if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteQuote(quote);
         }
+        #endregion
+
+        #region HelperMethods
+        public async void GetQuoteUrl()
+        {
+            quoteUrl = await _settingsService.LoadSettings(SettingsEnum.QuoteUrl.ToString());
+        }
 
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
+        #endregion
     }
 }

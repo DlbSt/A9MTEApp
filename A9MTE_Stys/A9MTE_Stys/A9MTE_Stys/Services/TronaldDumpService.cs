@@ -13,10 +13,7 @@ namespace A9MTE_Stys.Services
 {
     public class TronaldDumpService : ITronaldDumpService
     {
-        private string quoteUrl = "https://api.tronalddump.io/random/quote";
-        private string memeUrl = "https://api.tronalddump.io/random/meme";
-
-        public async Task<TrumpQuote> GetJokeAsync()
+        public async Task<TrumpQuote> GetJokeAsync(string quoteUrl)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(0, 0, 3);
@@ -44,7 +41,7 @@ namespace A9MTE_Stys.Services
             }
         }
 
-        public async Task<ImageSource> GetMemeAsync()
+        public async Task<ImageSource> GetMemeAsync(string memeUrl)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(0, 0, 1);

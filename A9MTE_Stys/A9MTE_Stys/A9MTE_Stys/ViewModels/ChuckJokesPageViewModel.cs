@@ -14,18 +14,20 @@ namespace A9MTE_Stys.ViewModels
 {
     public class ChuckJokesPageViewModel : BindableBase
     {
+        #region Services
         private readonly IJokeService _jokeService;
         private readonly IDatabaseService _databaseService;
         private readonly ISettingsService _settingsService;
         private readonly IToastMessage _toastMessage;
+        #endregion
 
-        private Random random = new Random();
-        private string url = "https://api.chucknorris.io/jokes/random?category=";
-
+        #region Commands
         public DelegateCommand OnAddJokeCommand { get; set; }
         public DelegateCommand<string> OnCellTappedCommand { get; set; }
         public DelegateCommand<JokeItem> OnDeleteJokeCommand { get; set; }
+        #endregion
 
+        #region Properties
         private List<JokeItem> jokeList = new List<JokeItem>();
         public List<JokeItem> JokeList
         {
@@ -72,8 +74,22 @@ namespace A9MTE_Stys.ViewModels
             get { return scroll; }
             set { SetProperty(ref scroll, value); }
         }
+        #endregion
 
-        public ChuckJokesPageViewModel(IJokeService jokeService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
+        #region Fields
+        private Random random = new Random();
+        private string url;
+        private const string apiErrorMessage = "API Url not valid!";
+        private const string commonErrorMessage = "Joke couldn't be added!";
+        private const string selectErrorMessage = "No joke was selected!";
+        private const string notConnectedMessage = "Not connected to internet!";
+        private const string iconUrl = "chucknorris.png";
+        #endregion
+
+        public ChuckJokesPageViewModel(IJokeService jokeService, 
+                                       IDatabaseService databaseService, 
+                                       ISettingsService settingsService, 
+                                       IToastMessage toastMessage)
         {
             _jokeService = jokeService;
             _databaseService = databaseService;
@@ -95,16 +111,10 @@ namespace A9MTE_Stys.ViewModels
 
             UpdateBindedCollection();
 
-            if (!IsConnected()) _toastMessage.ShowToast("Not connected to internet!");
+            if (!IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
         }
 
-        private async void LoadUrl()
-        {
-            var urlString = await _settingsService.LoadSettings(SettingsEnum.JokeUrl.ToString());
-            if (string.IsNullOrEmpty(urlString)) await _settingsService.SaveSettings(SettingsEnum.JokeUrl.ToString(), url);
-            else url = urlString;
-        }
-
+        #region ListViewHandling
         private void UpdateBindedCollection()
         {
             if (ShowCategory == CategoryEnum.All)
@@ -135,7 +145,7 @@ namespace A9MTE_Stys.ViewModels
             {
                 await TextToSpeech.SpeakAsync(joke);
             }
-            else _toastMessage.ShowToast("No joke was selected!");
+            else _toastMessage.ShowToast(selectErrorMessage);
         }
 
         private bool CanReadJokeAsync(string joke)
@@ -146,32 +156,40 @@ namespace A9MTE_Stys.ViewModels
 
         public async void AddJokeAsync()
         {
-            Scroll = ScrollEnum.Scroll;
-            var actualCategory = (Category == 0) ? (CategoryEnum)random.Next(1, 16) : Category;
-
-            var joke = await _jokeService.GetJokeAsync(url, actualCategory.ToString().ToLower()); //if category is "All", select random one
-            if (joke != null)
+            try
             {
-                int id = 1;
-
-                if (JokeList.Count > 0) id = JokeList.Last().Id + 1;
-
-                var jokeItem = new JokeItem
+                if (!string.IsNullOrEmpty(url))
                 {
-                    Id = id,
-                    Icon = "chucknorris.png",
-                    Joke = joke.value,
-                    Url = new Uri(joke.url),
-                    RestId = joke.icon_url,
-                    Category = actualCategory
-                };
+                    Scroll = ScrollEnum.Scroll;
+                    var actualCategory = (Category == 0) ? (CategoryEnum)random.Next(1, 16) : Category;
 
-                JokeList.Add(jokeItem);
-                UpdateBindedCollection();
+                    var joke = await _jokeService.GetJokeAsync(url, actualCategory.ToString().ToLower()); //if category is "All", select random one
+                    if (joke != null)
+                    {
+                        int id = 1;
 
-                if (Device.RuntimePlatform == Device.Android) await _databaseService.AddJoke(jokeItem);
+                        if (JokeList.Count > 0) id = JokeList.Last().Id + 1;
+
+                        var jokeItem = new JokeItem
+                        {
+                            Id = id,
+                            Icon = iconUrl,
+                            Joke = joke.value,
+                            Url = new Uri(joke.url),
+                            RestId = joke.icon_url,
+                            Category = actualCategory
+                        };
+
+                        JokeList.Add(jokeItem);
+                        UpdateBindedCollection();
+
+                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddJoke(jokeItem);
+                    }
+                    else _toastMessage.ShowToast(commonErrorMessage);
+                }
+                else _toastMessage.ShowToast(apiErrorMessage);
             }
-            else _toastMessage.ShowToast("Joke couldn't be added!");
+            catch { _toastMessage.ShowToast(commonErrorMessage); }
         }
 
         public async void DeleteJoke(JokeItem joke)
@@ -184,7 +202,16 @@ namespace A9MTE_Stys.ViewModels
             if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteJoke(joke);
         }
         public bool CanAddJokeAsync() => IsConnected();
+        #endregion
+
+        #region HelperMethods
+        private async void LoadUrl()
+        {
+            url = await _settingsService.LoadSettings(SettingsEnum.JokeUrl.ToString());
+        }
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
+
+        #endregion
     }
 }
 

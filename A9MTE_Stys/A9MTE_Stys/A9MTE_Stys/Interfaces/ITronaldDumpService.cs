@@ -9,7 +9,7 @@ namespace A9MTE_Stys.Interfaces
 {
     public interface ITronaldDumpService
     {
-        Task<TrumpQuote> GetJokeAsync();
-        Task<ImageSource> GetMemeAsync();
+        Task<TrumpQuote> GetJokeAsync(string quoteUrl);
+        Task<ImageSource> GetMemeAsync(string memeUrl);
     }
 }

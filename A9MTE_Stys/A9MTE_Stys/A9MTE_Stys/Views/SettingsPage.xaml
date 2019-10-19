@@ -8,6 +8,7 @@
              Visual="Material">
     <TableView Intent="Settings" Visual="Material">
         <TableRoot>
+            <!-- #region ChuckNorrisAPI -->
             <TableSection Title="Chuck Norris API"
                           TextColor="{StaticResource FaiUtbYellow}">
                 <TextCell Text="Server Address"
@@ -16,6 +17,8 @@
                           Command="{Binding ShowJokeAddressPopUpCommand}"
                           CommandParameter="{Binding Source={x:Reference CNEntry}, Path=Detail}" />
             </TableSection>
+            <!-- #endregion -->
+            <!-- #region TronaldDumpAPI -->
             <TableSection Title="Tronald Dump API"
                           TextColor="{StaticResource FaiUtbYellow}">
                 <ViewCell>
@@ -27,7 +30,7 @@
                 <TextCell Text="Server Address"
                           x:Name="MemeEntry"
                           Detail="{Binding MemeUrl, Mode=TwoWay}" 
-                          Command="{Binding ShowJokeAddressPopUpCommand}"
+                          Command="{Binding ShowMemeAddressPopUpCommand}"
                           CommandParameter="{Binding Source={x:Reference MemeEntry}, Path=Detail}" />
                 <ViewCell>
                     <Label Text="Quote Settings"
@@ -38,9 +41,36 @@
                 <TextCell Text="Server Address"
                           x:Name="QuoteEntry"
                           Detail="{Binding QuoteUrl, Mode=TwoWay}" 
-                          Command="{Binding ShowJokeAddressPopUpCommand}"
+                          Command="{Binding ShowQuoteAddressPopUpCommand}"
                           CommandParameter="{Binding Source={x:Reference QuoteEntry}, Path=Detail}" />
             </TableSection>
+            <!-- #endregion -->
+            <!-- #region Licenses -->
+            <TableSection Title="Licenses"
+                          TextColor="{StaticResource FaiUtbYellow}">
+                <TextCell Text="Newtonsoft.Json"
+                          x:Name="NewtonsoftEntry"
+                          Detail="MIT License" />
+                <TextCell Text="Prism.DryIoc.Forms"
+                          x:Name="PrismEntry"
+                          Detail="MIT License" />
+                <TextCell Text="Prism.Plugin.Popups"
+                          x:Name="PopUpEntry"
+                          Detail="MIT License" />
+                <TextCell Text="SQLite-net"
+                          x:Name="SQLiteEntry"
+                          Detail="MIT License" />
+                <TextCell Text="Xam.Plugins.Forms.ImageCircle"
+                          x:Name="ImageCircleEntry"
+                          Detail="MIT License" />
+                <TextCell Text="Xamarin.FFImageLoading.Svg.Forms"
+                          x:Name="SvgEntry"
+                          Detail="MIT License" />
+                <TextCell Text="Xamarin.Forms.PancakeView"
+                          x:Name="PancakeEntry"
+                          Detail="MIT License" />
+            </TableSection>
+            <!-- #endregion -->
         </TableRoot>
     </TableView>
 </ContentPage>
