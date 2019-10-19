@@ -1,17 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             Visual="Material"
-             x:Class="A9MTE_Stys.Views.PopUps.LicensePage">
-
-    <StackLayout>
-        <ScrollView>
-            <Label Text="{Binding LicenseText}" />
-        </ScrollView>
-        <Button Text="Close"
-                Visual="Material"
-                BackgroundColor="{StaticResource FaiUtbYellow}" />
-    </StackLayout>
-</ContentPage>
+<pages:PopupPage xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 Visual="Material"
+                 x:Class="A9MTE_Stys.Views.PopUps.LicensePage">
+    <Frame VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="300"
+           HeightRequest="450"
+           MinimumWidthRequest="300"
+           MinimumHeightRequest="250"
+           BorderColor="{StaticResource FaiUtbYellow}"
+           BackgroundColor="White">
+        <StackLayout>
+            <Frame HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Margin="0"
+                   Padding="5"
+                   BorderColor="{StaticResource FaiUtbYellow}">
+            <WebView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"                   
+                     Margin="0, 0, 0, 0">
+                    <WebView.Source>
+                        <HtmlWebViewSource Html="{Binding HtmlText, Mode=TwoWay}" />
+                    </WebView.Source>
+                </WebView>
+            </Frame>
+            <Button Text="Close"
+                    Visual="Material"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    Margin="0, 10, 5, 0"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding ClosePopupCommand}" />
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

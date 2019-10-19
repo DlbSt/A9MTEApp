@@ -12,9 +12,9 @@ namespace A9MTE_Stys.Interfaces
         List<JokeItem> GetJokes();
         Task<bool> DeleteJoke(JokeItem joke);
 
-        Task<bool> AddQuote(QuoteItem quote);
-        List<QuoteItem> GetQuotes();
-        Task<bool> DeleteQuote(QuoteItem quote);
+        Task<bool> AddQuote(QuoteDbItem quote);
+        List<QuoteDbItem> GetQuotes();
+        Task<bool> DeleteQuote(QuoteDbItem quote);
 
         bool DeleteDatabase();
     }

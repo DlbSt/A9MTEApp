@@ -45,30 +45,13 @@
                           CommandParameter="{Binding Source={x:Reference QuoteEntry}, Path=Detail}" />
             </TableSection>
             <!-- #endregion -->
-            <!-- #region Licenses -->
-            <TableSection Title="Licenses"
+            <!-- #region Help -->
+            <TableSection Title="Help"
                           TextColor="{StaticResource FaiUtbYellow}">
-                <TextCell Text="Newtonsoft.Json"
-                          x:Name="NewtonsoftEntry"
-                          Detail="MIT License" />
-                <TextCell Text="Prism.DryIoc.Forms"
-                          x:Name="PrismEntry"
-                          Detail="MIT License" />
-                <TextCell Text="Prism.Plugin.Popups"
-                          x:Name="PopUpEntry"
-                          Detail="MIT License" />
-                <TextCell Text="SQLite-net"
-                          x:Name="SQLiteEntry"
-                          Detail="MIT License" />
-                <TextCell Text="Xam.Plugins.Forms.ImageCircle"
-                          x:Name="ImageCircleEntry"
-                          Detail="MIT License" />
-                <TextCell Text="Xamarin.FFImageLoading.Svg.Forms"
-                          x:Name="SvgEntry"
-                          Detail="MIT License" />
-                <TextCell Text="Xamarin.Forms.PancakeView"
-                          x:Name="PancakeEntry"
-                          Detail="MIT License" />
+                <TextCell Text="Licensing"
+                          Command="{Binding NavigateToLicensingPageCommand}"/>
+                <TextCell Text="About"
+                          Command="{Binding ShowAboutPopUpCommand}"/>
             </TableSection>
             <!-- #endregion -->
         </TableRoot>

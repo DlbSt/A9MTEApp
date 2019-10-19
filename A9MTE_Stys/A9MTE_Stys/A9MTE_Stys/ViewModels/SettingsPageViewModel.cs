@@ -26,6 +26,8 @@ namespace A9MTE_Stys.ViewModels
         public DelegateCommand<string> ShowJokeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowMemeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowQuoteAddressPopUpCommand { get; set; }
+        public DelegateCommand ShowAboutPopUpCommand { get; set; }
+        public DelegateCommand NavigateToLicensingPageCommand { get; set; }
         #endregion
 
         #region Properties
@@ -76,13 +78,15 @@ namespace A9MTE_Stys.ViewModels
             ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAddressPopUpWindowAsync);
             ShowMemeAddressPopUpCommand = new DelegateCommand<string>(ShowMemeAddressPopUpWindowAsync);
             ShowQuoteAddressPopUpCommand = new DelegateCommand<string>(ShowQuoteAddressPopUpWindowAsync);
+            ShowAboutPopUpCommand = new DelegateCommand(ShowAboutPopUpWindowAsync);
+            NavigateToLicensingPageCommand = new DelegateCommand(NavigateToLicensingPage);
 
             _eventAggregator.GetEvent<PopUpResultEvent>().Subscribe(UpdateUrl);
 
             LoadSettings();
         }
 
-        #region ShowPopUp
+        #region SettingsPopUp
         private async void ShowJokeAddressPopUpWindowAsync(string param)
         {
             await _navigationService.NavigateAsync("TextPickerPage", new NavigationParameters
@@ -109,6 +113,21 @@ namespace A9MTE_Stys.ViewModels
                 { "url", param }
             });
         }
+        #endregion
+
+        #region AboutPopUp
+        private async void ShowAboutPopUpWindowAsync()
+        {
+            await _navigationService.NavigateAsync("AboutPage");
+        }
+        #endregion
+
+        #region Licensing
+        private async void NavigateToLicensingPage()
+        {
+            await _navigationService.NavigateAsync("LicensingPage");
+        }
+
         #endregion
 
         #region EventAggregator

@@ -86,9 +86,9 @@ namespace A9MTE_Stys.ViewModels
         private const string iconUrl = "chucknorris.png";
         #endregion
 
-        public ChuckJokesPageViewModel(IJokeService jokeService, 
-                                       IDatabaseService databaseService, 
-                                       ISettingsService settingsService, 
+        public ChuckJokesPageViewModel(IJokeService jokeService,
+                                       IDatabaseService databaseService,
+                                       ISettingsService settingsService,
                                        IToastMessage toastMessage)
         {
             _jokeService = jokeService;
@@ -101,6 +101,8 @@ namespace A9MTE_Stys.ViewModels
             OnDeleteJokeCommand = new DelegateCommand<JokeItem>(DeleteJoke);
 
             LoadUrl();
+
+            //_databaseService.DeleteDatabase();
 
             var dbJokes = _databaseService.GetJokes();
 

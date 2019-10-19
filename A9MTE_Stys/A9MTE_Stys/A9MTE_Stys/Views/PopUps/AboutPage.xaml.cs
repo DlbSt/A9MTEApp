@@ -1,8 +1,9 @@
-﻿using Xamarin.Forms;
+﻿using Rg.Plugins.Popup.Pages;
+using Xamarin.Forms;
 
 namespace A9MTE_Stys.Views.PopUps
 {
-    public partial class AboutPage : ContentPage
+    public partial class AboutPage : PopupPage
     {
         public AboutPage()
         {

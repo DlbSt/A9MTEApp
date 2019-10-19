@@ -1,8 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="A9MTE_Stys.Views.PopUps.AboutPage">
-  
-</ContentPage>
+<pages:PopupPage xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 Visual="Material"
+                 x:Class="A9MTE_Stys.Views.PopUps.AboutPage">
+    <Frame VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="300"
+           HeightRequest="210"
+           MinimumWidthRequest="300"
+           MinimumHeightRequest="210"
+           BorderColor="{StaticResource FaiUtbYellow}"
+           BackgroundColor="White">
+        <StackLayout Orientation="Vertical">
+            <Image Source="faipictext.png"
+                   Margin="0" />
+            <BoxView BackgroundColor="{StaticResource FaiUtbYellow}"
+                     HeightRequest="1"/>
+            <Label FontSize="Title"
+                   Text="A9MTE - TERM PROJECT" />
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Author: "
+                          FontSize="Subtitle"
+                          FontAttributes="Bold"/>
+                        <Span FontSize="Subtitle"
+                              Text="Dalibor Štys" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Year: "
+                          FontSize="Subtitle"
+                          FontAttributes="Bold"/>
+                        <Span FontSize="Subtitle"
+                              Text="2019" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Button Text="Close"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Visual="Material"
+                    HorizontalOptions="End"
+                    VerticalOptions="EndAndExpand"
+                    Command="{Binding ClosePopUpCommand}"/>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

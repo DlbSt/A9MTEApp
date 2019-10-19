@@ -13,7 +13,7 @@ namespace A9MTE_Stys.Services
 {
     public class TronaldDumpService : ITronaldDumpService
     {
-        public async Task<TrumpQuote> GetJokeAsync(string quoteUrl)
+        public async Task<TrumpQuote> GetQuoteAsync(string quoteUrl)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(0, 0, 3);
@@ -68,9 +68,12 @@ namespace A9MTE_Stys.Services
                 return null;
             }
         }
+
+        #region HelperMethods
         private ImageSource ByteArrayToImage(byte[] imageBytes)
         {
             return ImageSource.FromStream(() => new MemoryStream(imageBytes));
         }
+        #endregion
     }
 }

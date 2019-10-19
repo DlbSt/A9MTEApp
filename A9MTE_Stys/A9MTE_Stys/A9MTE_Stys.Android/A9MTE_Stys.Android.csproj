@@ -73,6 +73,9 @@
     <PackageReference Include="Prism.Plugin.Popups">
       <Version>7.2.0.573</Version>
     </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.6.292</Version>
+    </PackageReference>
     <PackageReference Include="System.Net.Http">
       <Version>4.3.4</Version>
     </PackageReference>

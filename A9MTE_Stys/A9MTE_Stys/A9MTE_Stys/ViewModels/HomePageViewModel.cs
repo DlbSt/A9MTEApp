@@ -19,7 +19,6 @@ namespace A9MTE_Stys.ViewModels
         private string quoteUrl = "https://api.tronalddump.io/random/quote";
         #endregion
 
-
         public HomePageViewModel(ISettingsService settingsService)
         {
             _settingsService = settingsService;

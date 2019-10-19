@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:prism="http://prismlibrary.com"
+                prism:ViewModelLocator.AutowireViewModel="True"
+                x:Class="A9MTE_Stys.Views.LicensingPage"
+                Title="Licensing">
+    <TableView>
+        <!-- #region Licenses -->
+        <TableSection Title="Licenses"
+                      TextColor="{StaticResource FaiUtbYellow}">
+            <TextCell Text="Newtonsoft.Json"
+                      x:Name="NewtonsoftEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference NewtonsoftEntry}, Path=Text}" />
+            <TextCell Text="Prism.DryIoc.Forms"
+                      x:Name="PrismEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference PrismEntry}, Path=Text}" />
+            <TextCell Text="Prism.Plugin.Popups"
+                      x:Name="PopUpEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference PopUpEntry}, Path=Text}" />
+            <TextCell Text="SQLite-net-pcl"
+                      x:Name="SQLiteEntry"
+                      Detail="MIT License" 
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference SQLiteEntry}, Path=Text}" />
+            <TextCell Text="Xam.Plugins.Forms.ImageCircle"
+                      x:Name="ImageCircleEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference ImageCircleEntry}, Path=Text}" />
+            <TextCell Text="Xamarin.FFImageLoading.Svg.Forms"
+                      x:Name="SvgEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference SvgEntry}, Path=Text}" />
+            <TextCell Text="Xamarin.Forms.PancakeView"
+                      x:Name="PancakeEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference PancakeEntry}, Path=Text}" />
+        </TableSection>
+        <!-- #endregion -->
+    </TableView>
+</ContentPage>

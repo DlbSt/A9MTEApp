@@ -65,6 +65,7 @@ namespace A9MTE_Stys.ViewModels
                     {
                         if (ImageCollection.Count == trumpImageCount) ImageCollection.RemoveAt(0);
                         ImageCollection.Add(value);
+                        
                     }
                     else
                     {

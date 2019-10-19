@@ -69,7 +69,11 @@ namespace A9MTE_Stys.ViewModels
 
             if (dbQuotes != null)
             {
-                foreach (var item in dbQuotes) Quotes.Add(item);
+                foreach (var item in dbQuotes) Quotes.Add(new QuoteItem { Tags = item.Tags.Split(';').ToList(),
+                                                                          Icon = item.Icon,
+                                                                          Id = item.Id,
+                                                                          Quote = item.Quote
+                });
             }
 
             if (!IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
@@ -82,7 +86,7 @@ namespace A9MTE_Stys.ViewModels
             {
                 if (!string.IsNullOrEmpty(quoteUrl))
                 {
-                    var quotes = await _tronaldDumpService.GetJokeAsync(quoteUrl);
+                    var quotes = await _tronaldDumpService.GetQuoteAsync(quoteUrl);
 
                     if (quotes != null)
                     {
@@ -100,7 +104,11 @@ namespace A9MTE_Stys.ViewModels
 
                         Quotes.Add(quote);
 
-                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(quote);
+                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(new QuoteDbItem { Icon = quote.Icon,
+                                                                                                                        Id = quote.Id, 
+                                                                                                                        Quote = quote.Quote,
+                                                                                                                        Tags = String.Join(";", quote.Tags.ToArray())
+                        });
                     }
                     else _toastMessage.ShowToast(commonErrorMessage);
                 }
@@ -133,7 +141,11 @@ namespace A9MTE_Stys.ViewModels
             if (quote != null) Quotes.Remove(quote);
             else _toastMessage.ShowToast(selectErrorMessage);
 
-            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteQuote(quote);
+            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteQuote(new QuoteDbItem { Icon = quote.Icon,
+                                                                                                               Id = quote.Id,
+                                                                                                               Quote = quote.Quote,
+                                                                                                               Tags = String.Join(";", quote.Tags.ToArray())
+            });
         }
         #endregion
 

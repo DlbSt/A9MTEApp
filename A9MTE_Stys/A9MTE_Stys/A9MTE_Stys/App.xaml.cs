@@ -8,6 +8,7 @@ using A9MTE_Stys.Services;
 using A9MTE_Stys.Interfaces;
 using Prism.Plugin.Popups;
 using A9MTE_Stys.Views.PopUps;
+using A9MTE_Stys.ViewModels.PopUps;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace A9MTE_Stys
@@ -50,6 +51,7 @@ namespace A9MTE_Stys
             containerRegistry.RegisterForNavigation<TextPickerPage, TextPickerPageViewModel>();
             containerRegistry.RegisterForNavigation<LicensePage, LicensePageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+            containerRegistry.RegisterForNavigation<LicensingPage, LicensingPageViewModel>();
         }
     }
 }

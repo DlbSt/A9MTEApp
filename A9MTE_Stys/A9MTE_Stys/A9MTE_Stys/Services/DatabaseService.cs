@@ -24,7 +24,7 @@ namespace A9MTE_Stys.Services
                                                                     SQLiteOpenFlags.FullMutex))
                 {
                     db.CreateTable<JokeItem>();
-                    db.CreateTable<QuoteItem>();
+                    db.CreateTable<QuoteDbItem>();
                     return true;
                 }
             }
@@ -124,7 +124,7 @@ namespace A9MTE_Stys.Services
 
         #region TrumpQuotes
 
-        public async Task<bool> AddQuote(QuoteItem quote)
+        public async Task<bool> AddQuote(QuoteDbItem quote)
         {
             if (FileExists())
             {
@@ -158,7 +158,7 @@ namespace A9MTE_Stys.Services
             }
         }
 
-        public List<QuoteItem> GetQuotes()
+        public List<QuoteDbItem> GetQuotes()
         {
             if (FileExists())
             {
@@ -166,7 +166,7 @@ namespace A9MTE_Stys.Services
                 {
                     using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
                     {
-                        return db.Table<QuoteItem>().ToList();
+                        return db.Table<QuoteDbItem>().ToList();
                     }
                 }
                 catch { return null; }
@@ -174,7 +174,7 @@ namespace A9MTE_Stys.Services
             else return null;
         }
 
-        public async Task<bool> DeleteQuote(QuoteItem quote)
+        public async Task<bool> DeleteQuote(QuoteDbItem quote)
         {
             try
             {

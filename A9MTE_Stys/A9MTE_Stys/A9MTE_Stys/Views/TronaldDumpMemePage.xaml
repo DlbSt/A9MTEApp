@@ -21,7 +21,7 @@
                         <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="FillAndExpand"
-                                           Margin="5"
+                                           Margin="10, 5, 10, 5"
                                            BackgroundGradientAngle="90"
                                            BackgroundColor="Black"
                                            IsClippedToBounds="False"                                       
@@ -55,10 +55,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView> -->
-        <Button Text="Add random meme" 
+        <Grid HeightRequest="50" MinimumHeightRequest="50" Margin="0, 0, 0, 10">
+            <Button Text="Add random meme" 
             Visual="Material" 
-            Margin="5, 5, 5, 5"
+            Margin="10, 0, 10, 0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
             BackgroundColor="{StaticResource FaiUtbYellow}"
             Command="{Binding OnAddMemeCommand}" />
+        </Grid>
     </StackLayout>
 </ContentPage>

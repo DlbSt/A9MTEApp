@@ -13,7 +13,8 @@
            HeightRequest="140"
            MinimumWidthRequest="300"
            MinimumHeightRequest="140"
-           BorderColor="{StaticResource FaiUtbYellow}">
+           BorderColor="{StaticResource FaiUtbYellow}"
+           BackgroundColor="White">
         <StackLayout HorizontalOptions="FillAndExpand" 
                      VerticalOptions="FillAndExpand"
                      BackgroundColor="Transparent">
