@@ -17,6 +17,7 @@ namespace A9MTE_Stys.ViewModels
         private string jokeUrl = "https://api.chucknorris.io/jokes/random?category=";
         private string memeUrl = "https://api.tronalddump.io/random/meme";
         private string quoteUrl = "https://api.tronalddump.io/random/quote";
+        private int memeLimit = 5;
         #endregion
 
         public HomePageViewModel(ISettingsService settingsService)
@@ -36,6 +37,9 @@ namespace A9MTE_Stys.ViewModels
 
             var quoteUrl = await _settingsService.LoadSettings(SettingsEnum.QuoteUrl.ToString());
             if (string.IsNullOrEmpty(quoteUrl)) await _settingsService.SaveSettings(SettingsEnum.QuoteUrl.ToString(), this.quoteUrl);
+
+            var memeLimit = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
+            if (string.IsNullOrEmpty(memeLimit)) await _settingsService.SaveSettings(SettingsEnum.MemeLimit.ToString(), this.memeLimit.ToString());
         }
     }
 }

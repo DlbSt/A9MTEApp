@@ -26,7 +26,7 @@ namespace A9MTE_Stys.ViewModels
         public DelegateCommand<string> ShowJokeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowMemeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowQuoteAddressPopUpCommand { get; set; }
-        public DelegateCommand<int> ShowLimitPopUpCommand { get; set; }
+        public DelegateCommand ShowLimitPopUpCommand { get; set; }
         public DelegateCommand ShowAboutPopUpCommand { get; set; }
         public DelegateCommand NavigateToLicensingPageCommand { get; set; }
         #endregion
@@ -90,7 +90,7 @@ namespace A9MTE_Stys.ViewModels
             ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAddressPopUpWindowAsync);
             ShowMemeAddressPopUpCommand = new DelegateCommand<string>(ShowMemeAddressPopUpWindowAsync);
             ShowQuoteAddressPopUpCommand = new DelegateCommand<string>(ShowQuoteAddressPopUpWindowAsync);
-            ShowLimitPopUpCommand = new DelegateCommand<int>(ShowLimitPopUpWindowAsync);
+            ShowLimitPopUpCommand = new DelegateCommand(ShowLimitPopUpWindowAsync);
             ShowAboutPopUpCommand = new DelegateCommand(ShowAboutPopUpWindowAsync);
             NavigateToLicensingPageCommand = new DelegateCommand(NavigateToLicensingPage);
 
@@ -128,11 +128,11 @@ namespace A9MTE_Stys.ViewModels
             });
         }
 
-        private async void ShowLimitPopUpWindowAsync(int param)
+        private async void ShowLimitPopUpWindowAsync()
         {
             await _navigationService.NavigateAsync("TrumpLimitPage", new NavigationParameters
             {
-                { "limit", param }
+                { "limit", MemeLimit }
             });
         }
         #endregion
