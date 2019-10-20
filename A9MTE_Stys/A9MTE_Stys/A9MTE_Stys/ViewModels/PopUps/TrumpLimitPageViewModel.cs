@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace A9MTE_Stys.ViewModels.PopUps
 {
-    public class TrumpLimitPageViewModel : BindableBase
+    public class TrumpLimitPageViewModel : BindableBase, IInitialize
     {
         #region Services
         private readonly INavigationService _navigationService;
@@ -37,12 +37,16 @@ namespace A9MTE_Stys.ViewModels.PopUps
             set { SetProperty(ref maximum, value); }
         }
 
-        private int limitValue = 5;
+        private int limitValue;
         public int LimitValue
         {
             get { return limitValue; }
             set { SetProperty(ref limitValue, value); }
         }
+        #endregion
+
+        #region Fields
+        private const int limitInt = 5;
         #endregion
 
         public TrumpLimitPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator)
@@ -54,10 +58,18 @@ namespace A9MTE_Stys.ViewModels.PopUps
             OnCancelClickedCommand = new DelegateCommand(CancelClickedAsync);
         }
 
+        #region Navigation
+        public void Initialize(INavigationParameters parameters)
+        {
+            var limit = parameters["limit"] as string;
+            var key = parameters.Keys;
+            //LimitValue = parameters["limit"] as int;
+        }
+
         private async void OKClickedAsync()
         {
-            _eventAggregator.GetEvent<TrumpLimitEvent>().Publish(new LimitPopupResultData 
-            { 
+            _eventAggregator.GetEvent<TrumpLimitEvent>().Publish(new LimitPopupResultData
+            {
                 LimitValue = LimitValue,
                 Result = PopUpResultEnum.OK 
             });
@@ -75,5 +87,6 @@ namespace A9MTE_Stys.ViewModels.PopUps
 
             await _navigationService.GoBackAsync();
         }
+        #endregion
     }
 }

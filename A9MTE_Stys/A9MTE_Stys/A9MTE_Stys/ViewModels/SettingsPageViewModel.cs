@@ -176,7 +176,7 @@ namespace A9MTE_Stys.ViewModels
         {
             if (resultData.Result == PopUpResultEnum.OK)
             {
-
+                MemeLimit = resultData.LimitValue;
             }
         }
         #endregion

@@ -36,7 +36,6 @@ namespace A9MTE_Stys.Behaviors
         {
             base.OnDetachingFrom(bindable);
 
-
             if (Device.RuntimePlatform == Device.Android)
             {
                 Device.BeginInvokeOnMainThread(() =>
@@ -49,7 +48,6 @@ namespace A9MTE_Stys.Behaviors
 
         private void ListViewScrollBehavior_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-
             if (Device.RuntimePlatform == Device.Android)
             {
                 ChuckJokesPage view = (ChuckJokesPage)AssociatedObject.Parent.Parent;

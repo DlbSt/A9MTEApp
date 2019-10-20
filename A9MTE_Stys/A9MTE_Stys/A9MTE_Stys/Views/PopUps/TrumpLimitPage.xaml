@@ -3,27 +3,38 @@
                  xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:prism="http://prismlibrary.com"
+                 xmlns:behaviors="clr-namespace:A9MTE_Stys.Behaviors"
+                 xmlns:converters="clr-namespace:A9MTE_Stys.Converters"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 mc:Ignorable="d"
                  prism:ViewModelLocator.AutowireViewModel="True"
                  x:Class="A9MTE_Stys.Views.PopUps.TrumpLimitPage"
                  Visual="Material">
     <Frame VerticalOptions="Center"
            HorizontalOptions="Center"
            WidthRequest="300"
-           HeightRequest="140"
+           HeightRequest="150"
            MinimumWidthRequest="300"
-           MinimumHeightRequest="140"
+           MinimumHeightRequest="150"
            BorderColor="{StaticResource FaiUtbYellow}"
            BackgroundColor="White">
         <StackLayout HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand"
                      BackgroundColor="Transparent">
-            <Label Text="SELECT MAXIMUM NUMBER: "
+            <Label Text="SELECT LIMIT: "
+                   Visual="Material"
+                   FontSize="Title" />
+            <Label Text="{Binding LimitValue, StringFormat='{0}', Mode=OneWay}"
+                   HorizontalOptions="Center"
+                   FontSize="Large"
                    Visual="Material" />
             <Stepper Visual="Material"
                      Increment="1"
                      Minimum="{Binding Minimum, Mode=TwoWay}"
                      Maximum="{Binding Maximum, Mode=TwoWay}"
-                     Value="{Binding LimitValue, Mode=TwoWay}" />
+                     Value="{Binding LimitValue, Mode=TwoWay}"
+                     Margin="0, 0, 0, 5"/>
             <StackLayout Orientation="Horizontal"
                          Margin="5, 0, 0, 0">
                 <Button Text="OK"
