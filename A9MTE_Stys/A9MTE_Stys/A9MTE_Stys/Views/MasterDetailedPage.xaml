@@ -32,21 +32,21 @@
                            WidthRequest="100"
                            HorizontalOptions="Start" 
                            VerticalOptions="CenterAndExpand" /> -->
-                    <!-- <controls:CircleImage 
+                    <controls:CircleImage 
                         Margin="10"
                         Aspect="AspectFill" 
-                        Source="utbikona400.png" 
+                        Source="faibuilding.jpg" 
                         WidthRequest="150"
                         HeightRequest="150"
                         HorizontalOptions="Center"
                         FillColor="White"
                         BorderColor="White" 
-                        BorderThickness="3" /> -->
-                    <Image Source="utbikona400.png"
+                        BorderThickness="3" />
+                    <!-- <Image Source="utbikona400.png"
                            HeightRequest="150"
-                           Margin="0, 10, 0, 0" />
+                           Margin="0, 10, 0, 0" /> -->
                     <Image Source="faitext.png"
-                           Margin="5" />
+                           Margin="15, 5, 15, 10" />
                            <!-- HeightRequest="50" -->
                     <!-- <Image Source="utbikona400.png"
                            HeightRequest="30"

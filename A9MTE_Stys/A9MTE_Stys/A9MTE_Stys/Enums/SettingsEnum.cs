@@ -8,6 +8,7 @@ namespace A9MTE_Stys.Enums
     {
         JokeUrl,
         MemeUrl,
-        QuoteUrl
+        QuoteUrl,
+        MemeLimit
     }
 }

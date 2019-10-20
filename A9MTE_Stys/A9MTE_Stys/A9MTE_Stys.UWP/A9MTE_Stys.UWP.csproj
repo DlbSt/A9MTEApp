@@ -120,6 +120,7 @@
     <Content Include="Assets\trump.svg" />
     <Content Include="Assets\utbikona400.png" />
     <Content Include="chucknorris.png" />
+    <Content Include="faibuilding.jpg" />
     <Content Include="faipictext.png" />
     <Content Include="faitext.png" />
     <Content Include="Properties\Default.rd.xml" />

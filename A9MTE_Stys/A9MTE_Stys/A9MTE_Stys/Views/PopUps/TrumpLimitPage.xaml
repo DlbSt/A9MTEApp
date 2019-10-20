@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 x:Class="A9MTE_Stys.Views.PopUps.TrumpLimitPage"
+                 Visual="Material">
+    <Frame VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="300"
+           HeightRequest="140"
+           MinimumWidthRequest="300"
+           MinimumHeightRequest="140"
+           BorderColor="{StaticResource FaiUtbYellow}"
+           BackgroundColor="White">
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     BackgroundColor="Transparent">
+            <Label Text="SELECT MAXIMUM NUMBER: "
+                   Visual="Material" />
+            <Stepper Visual="Material"
+                     Increment="1"
+                     Minimum="{Binding Minimum, Mode=TwoWay}"
+                     Maximum="{Binding Maximum, Mode=TwoWay}"
+                     Value="{Binding LimitValue, Mode=TwoWay}" />
+            <StackLayout Orientation="Horizontal"
+                         Margin="5, 0, 0, 0">
+                <Button Text="OK"
+                    Visual="Material" 
+                    HorizontalOptions="EndAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnOKClickedCommand}"/>
+                <Button Text="Cancel"
+                    Visual="Material" 
+                    HorizontalOptions="End"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnCancelClickedCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

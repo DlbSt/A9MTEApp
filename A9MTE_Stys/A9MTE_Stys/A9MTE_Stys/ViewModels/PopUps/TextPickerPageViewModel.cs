@@ -14,7 +14,7 @@ namespace A9MTE_Stys.ViewModels
 {
     public class TextPickerPageViewModel : BindableBase, IInitialize
     {
-        #region DependencyInjection
+        #region Services
         private readonly INavigationService _navigationService;
         private readonly IEventAggregator _eventAggregator;
         #endregion
@@ -55,9 +55,12 @@ namespace A9MTE_Stys.ViewModels
 
         public async void OKClickedAsync()
         {
-            _eventAggregator.GetEvent<PopUpResultEvent>().Publish(new PopUpResultData { Result = PopUpResultEnum.OK,
-                                                                                        Type = popUpType,
-                                                                                        Url = Url});
+            _eventAggregator.GetEvent<PopUpResultEvent>().Publish(new PopUpResultData 
+            { 
+                Result = PopUpResultEnum.OK,
+                Type = popUpType,
+                Url = Url
+            });
 
             await _navigationService.GoBackAsync();
         }

@@ -15,7 +15,7 @@ namespace A9MTE_Stys.ViewModels
 {
     public class SettingsPageViewModel : BindableBase
     {
-        #region DependencyInjection
+        #region Services
         private readonly IPageDialogService _dialogService;
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
@@ -26,6 +26,7 @@ namespace A9MTE_Stys.ViewModels
         public DelegateCommand<string> ShowJokeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowMemeAddressPopUpCommand { get; set; }
         public DelegateCommand<string> ShowQuoteAddressPopUpCommand { get; set; }
+        public DelegateCommand<int> ShowLimitPopUpCommand { get; set; }
         public DelegateCommand ShowAboutPopUpCommand { get; set; }
         public DelegateCommand NavigateToLicensingPageCommand { get; set; }
         #endregion
@@ -63,6 +64,17 @@ namespace A9MTE_Stys.ViewModels
                 SaveSettings(SettingsEnum.QuoteUrl.ToString(), value);
             }
         }
+
+        private int memeLimit;
+        public int MemeLimit
+        {
+            get { return memeLimit; }
+            set
+            {
+                SetProperty(ref memeLimit, value);
+                SaveSettings(SettingsEnum.MemeLimit.ToString(), value.ToString());
+            }
+        }
         #endregion
 
         public SettingsPageViewModel(INavigationService navigationService,
@@ -78,10 +90,12 @@ namespace A9MTE_Stys.ViewModels
             ShowJokeAddressPopUpCommand = new DelegateCommand<string>(ShowJokeAddressPopUpWindowAsync);
             ShowMemeAddressPopUpCommand = new DelegateCommand<string>(ShowMemeAddressPopUpWindowAsync);
             ShowQuoteAddressPopUpCommand = new DelegateCommand<string>(ShowQuoteAddressPopUpWindowAsync);
+            ShowLimitPopUpCommand = new DelegateCommand<int>(ShowLimitPopUpWindowAsync);
             ShowAboutPopUpCommand = new DelegateCommand(ShowAboutPopUpWindowAsync);
             NavigateToLicensingPageCommand = new DelegateCommand(NavigateToLicensingPage);
 
             _eventAggregator.GetEvent<PopUpResultEvent>().Subscribe(UpdateUrl);
+            _eventAggregator.GetEvent<TrumpLimitEvent>().Subscribe(UpdateLimit);
 
             LoadSettings();
         }
@@ -111,6 +125,14 @@ namespace A9MTE_Stys.ViewModels
             {
                 { "type", PopUpTypeEnum.TrumpQuotes.ToString() },
                 { "url", param }
+            });
+        }
+
+        private async void ShowLimitPopUpWindowAsync(int param)
+        {
+            await _navigationService.NavigateAsync("TrumpLimitPage", new NavigationParameters
+            {
+                { "limit", param }
             });
         }
         #endregion
@@ -149,6 +171,14 @@ namespace A9MTE_Stys.ViewModels
                 }
             }
         }
+
+        private void UpdateLimit(LimitPopupResultData resultData)
+        {
+            if (resultData.Result == PopUpResultEnum.OK)
+            {
+
+            }
+        }
         #endregion
 
         #region Settings
@@ -159,6 +189,8 @@ namespace A9MTE_Stys.ViewModels
                 JokeUrl = await _settingsService.LoadSettings(SettingsEnum.JokeUrl.ToString());
                 MemeUrl = await _settingsService.LoadSettings(SettingsEnum.MemeUrl.ToString());
                 QuoteUrl = await _settingsService.LoadSettings(SettingsEnum.QuoteUrl.ToString());
+                var limitString = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
+                MemeLimit = Convert.ToInt32(limitString);
             }
             catch { }
         }

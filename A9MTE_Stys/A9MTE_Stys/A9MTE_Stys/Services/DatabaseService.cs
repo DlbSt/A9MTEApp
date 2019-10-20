@@ -12,6 +12,7 @@ namespace A9MTE_Stys.Services
 {
     public class DatabaseService : IDatabaseService
     {
+        private Random random = new Random();
         private string GetDataPath() => Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "jokes.sqlite3");
         private bool FileExists() => File.Exists(GetDataPath()) ? true : false;
 
@@ -102,6 +103,24 @@ namespace A9MTE_Stys.Services
             else return null;
         }
 
+        public JokeItem GetRandomJoke()
+        {
+            if (FileExists())
+            {
+                try
+                {
+                    using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
+                    {
+                        var vals = db.Table<JokeItem>().ToList();
+                        var count = vals.Count;
+                        return vals[random.Next(0, count - 1)];
+                    }
+                }
+                catch { return null; }
+            }
+            else return null;
+        }
+
         public async Task<bool> DeleteJoke(JokeItem joke)
         {
             try
@@ -167,6 +186,24 @@ namespace A9MTE_Stys.Services
                     using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
                     {
                         return db.Table<QuoteDbItem>().ToList();
+                    }
+                }
+                catch { return null; }
+            }
+            else return null;
+        }
+
+        public QuoteDbItem GetRandomQuote()
+        {
+            if (FileExists())
+            {
+                try
+                {
+                    using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
+                    {
+                        var vals = db.Table<QuoteDbItem>().ToList();
+                        var count = vals.Count;
+                        return vals[random.Next(0, count - 1)];
                     }
                 }
                 catch { return null; }

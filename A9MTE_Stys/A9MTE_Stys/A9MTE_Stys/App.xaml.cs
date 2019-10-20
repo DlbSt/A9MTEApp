@@ -52,6 +52,7 @@ namespace A9MTE_Stys
             containerRegistry.RegisterForNavigation<LicensePage, LicensePageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
             containerRegistry.RegisterForNavigation<LicensingPage, LicensingPageViewModel>();
+            containerRegistry.RegisterForNavigation<TrumpLimitPage, TrumpLimitPageViewModel>();
         }
     }
 }
