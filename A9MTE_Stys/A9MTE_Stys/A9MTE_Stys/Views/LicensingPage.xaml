@@ -9,6 +9,11 @@
         <!-- #region Licenses -->
         <TableSection Title="Licenses"
                       TextColor="{StaticResource FaiUtbYellow}">
+            <TextCell Text="CardView"
+                      x:Name="CardViewEntry"
+                      Detail="MIT License"
+                      Command="{Binding ShowLicensePopUpCommand}"
+                      CommandParameter="{Binding Source={x:Reference CardViewEntry}, Path=Text}" />
             <TextCell Text="Newtonsoft.Json"
                       x:Name="NewtonsoftEntry"
                       Detail="MIT License"

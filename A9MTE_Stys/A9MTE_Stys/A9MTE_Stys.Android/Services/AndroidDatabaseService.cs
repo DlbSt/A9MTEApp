@@ -1,18 +1,18 @@
-﻿using A9MTE_Stys.Interfaces;
+﻿using System;
+using System.IO;
+using System.Diagnostics;
+using A9MTE_Stys.Droid.Services;
+using A9MTE_Stys.Interfaces;
 using A9MTE_Stys.Model;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Xamarin.Forms;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace A9MTE_Stys.Services
+[assembly: Dependency(typeof(AndroidDatabaseService))]
+namespace A9MTE_Stys.Droid.Services
 {
-    public class DatabaseService : IDatabaseService
+    public class AndroidDatabaseService : IDatabaseService
     {
         #region Fields
         private Random random = new Random();
@@ -236,8 +236,7 @@ namespace A9MTE_Stys.Services
         #region HelperMethods
         private string GetDataPath()
         {
-            if (Device.RuntimePlatform == Device.UWP) return Path.Combine(ApplicationData.Current.LocalFolder.Path, "jokes.sqlite3");
-            else return Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "jokes.sqlite3");
+            return Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "jokes.sqlite3");
         }
 
         private bool FileExists() => File.Exists(GetDataPath()) ? true : false;

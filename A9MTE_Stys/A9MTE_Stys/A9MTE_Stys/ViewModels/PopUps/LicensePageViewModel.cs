@@ -32,6 +32,9 @@ namespace A9MTE_Stys.ViewModels.PopUps
 
         #region Fields
 
+        private string cardViewHeader = @"<h3>CardView </h3>";
+        private string cardViewCopyright = @"<p>Copyright (c) 2018 Andrei";
+
         private string newtonsoftJsonHeader = @"<h3>Newtonsoft.Json</h3>";
         private string newtonsoftJsonCopyright = @"<p>Copyright (c) 2007 James Newton-King</p>";
 
@@ -72,12 +75,18 @@ namespace A9MTE_Stys.ViewModels.PopUps
         #region Navigation
         public void Initialize(INavigationParameters parameters)
         {
-            if (LicenseEnum.NewtonsoftJson.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
-                                                                                                                                    newtonsoftJsonHeader +
-                                                                                                                                    mitLicenseTitle +
-                                                                                                                                    newtonsoftJsonCopyright +
-                                                                                                                                    mitLicenseFull +
-                                                                                                                                    htmlFooter;
+            if (LicenseEnum.CardView.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
+                                                                                                                              cardViewHeader +
+                                                                                                                              mitLicenseTitle +
+                                                                                                                              cardViewCopyright +
+                                                                                                                              mitLicenseFull +
+                                                                                                                              htmlFooter;
+            else if (LicenseEnum.NewtonsoftJson.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
+                                                                                                                                         newtonsoftJsonHeader +
+                                                                                                                                         mitLicenseTitle +
+                                                                                                                                         newtonsoftJsonCopyright +
+                                                                                                                                         mitLicenseFull +
+                                                                                                                                         htmlFooter;
             else if (LicenseEnum.PrismDryIocForms.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
                                                                                                                                            prismFormsHeader +
                                                                                                                                            mitLicenseTitle +
@@ -104,7 +113,7 @@ namespace A9MTE_Stys.ViewModels.PopUps
                                                                                                                                                         htmlFooter;
             else if (LicenseEnum.XamarinFormsPancakeView.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
                                                                                                                                                   pancakeViewHeader +
-                                                                                                                                                  mitLicenseTitle + 
+                                                                                                                                                  mitLicenseTitle +
                                                                                                                                                   pancakeViewCopyright +
                                                                                                                                                   mitLicenseFull +
                                                                                                                                                   htmlFooter;

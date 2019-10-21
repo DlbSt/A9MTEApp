@@ -107,6 +107,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AndroidDatabaseService.cs" />
     <Compile Include="Services\ToastMessage.cs" />
     <Compile Include="SplashActivity.cs" />
   </ItemGroup>

@@ -7,6 +7,8 @@ namespace A9MTE_Stys.Enums
 {
     public enum LicenseEnum
     {
+        [Display(Name = "CardView")]
+        CardView,
         [Display(Name = "Newtonsoft.Json")]
         NewtonsoftJson,
         [Display(Name = "Prism.DryIoc.Forms")]

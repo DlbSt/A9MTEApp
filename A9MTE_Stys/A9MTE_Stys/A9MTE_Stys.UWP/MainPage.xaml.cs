@@ -35,6 +35,7 @@ namespace A9MTE_Stys.UWP
         {
             // Register any platform specific implementations
             containerRegistry.Register<IToastMessage, ToastMessage>();
+            containerRegistry.Register<IDatabaseService, UWPDatabaseService>();
         }
     }
 }

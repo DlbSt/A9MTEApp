@@ -41,6 +41,7 @@ namespace A9MTE_Stys.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IToastMessage, ToastMessage>();
+            containerRegistry.Register<IDatabaseService, AndroidDatabaseService>();
         }
     }
 }

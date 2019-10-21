@@ -37,7 +37,6 @@ namespace A9MTE_Stys
 
             containerRegistry.Register<IJokeService, JokeService>();
             containerRegistry.Register<ITronaldDumpService, TronaldDumpService>();
-            containerRegistry.Register<IDatabaseService, DatabaseService>();
             containerRegistry.Register<ISettingsService, SettingsService>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
