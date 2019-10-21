@@ -185,7 +185,7 @@ namespace A9MTE_Stys.ViewModels
                         JokeList.Add(jokeItem);
                         UpdateBindedCollection();
 
-                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddJoke(jokeItem);
+                        if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.AddJoke(jokeItem);
                     }
                     else _toastMessage.ShowToast(commonErrorMessage);
                 }
@@ -201,7 +201,7 @@ namespace A9MTE_Stys.ViewModels
             JokeList.Remove(joke);
             UpdateBindedCollection();
 
-            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteJoke(joke);
+            if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.DeleteJoke(joke);
         }
         public bool CanAddJokeAsync() => IsConnected();
         #endregion

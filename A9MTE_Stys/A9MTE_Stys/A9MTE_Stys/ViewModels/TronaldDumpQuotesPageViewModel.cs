@@ -107,10 +107,10 @@ namespace A9MTE_Stys.ViewModels
 
                         Quotes.Add(quote);
 
-                        if (Device.RuntimePlatform == Device.Android) await _databaseService.AddQuote(new QuoteDbItem { Icon = quote.Icon,
-                                                                                                                        Id = quote.Id, 
-                                                                                                                        Quote = quote.Quote,
-                                                                                                                        Tags = String.Join(";", quote.Tags.ToArray())
+                        if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.AddQuote(new QuoteDbItem { Icon = quote.Icon,
+                                                                                                                                                                Id = quote.Id, 
+                                                                                                                                                                Quote = quote.Quote,
+                                                                                                                                                                Tags = String.Join(";", quote.Tags.ToArray())
                         });
                     }
                     else _toastMessage.ShowToast(commonErrorMessage);
@@ -144,10 +144,10 @@ namespace A9MTE_Stys.ViewModels
             if (quote != null) Quotes.Remove(quote);
             else _toastMessage.ShowToast(selectErrorMessage);
 
-            if (Device.RuntimePlatform == Device.Android) await _databaseService.DeleteQuote(new QuoteDbItem { Icon = quote.Icon,
-                                                                                                               Id = quote.Id,
-                                                                                                               Quote = quote.Quote,
-                                                                                                               Tags = String.Join(";", quote.Tags.ToArray())
+            if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.DeleteQuote(new QuoteDbItem { Icon = quote.Icon,
+                                                                                                                                                       Id = quote.Id,
+                                                                                                                                                       Quote = quote.Quote,
+                                                                                                                                                       Tags = String.Join(";", quote.Tags.ToArray())
             });
         }
         #endregion

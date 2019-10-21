@@ -223,6 +223,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     BackgroundColor="{StaticResource FaiUtbYellow}"
+                    TextColor="White"
                     Visual="Material" />
             <Picker Grid.Column="1"
                     ItemsSource="{Binding Categories}"

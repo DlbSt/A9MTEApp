@@ -43,6 +43,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     BackgroundColor="{StaticResource FaiUtbYellow}"
+                    TextColor="White"
                     Command="{Binding OnAddMemeCommand}" />
             <Button Text="Delete meme" 
                     Visual="Material" 
@@ -50,6 +51,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     BackgroundColor="{StaticResource FaiUtbYellow}"
+                    TextColor="White"
                     Command="{Binding OnDeleteMemeCommand}" />
         </StackLayout>
     </StackLayout>

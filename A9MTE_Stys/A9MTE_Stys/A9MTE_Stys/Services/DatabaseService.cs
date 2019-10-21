@@ -7,14 +7,16 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Xamarin.Forms;
 
 namespace A9MTE_Stys.Services
 {
     public class DatabaseService : IDatabaseService
     {
+        #region Fields
         private Random random = new Random();
-        private string GetDataPath() => Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "jokes.sqlite3");
-        private bool FileExists() => File.Exists(GetDataPath()) ? true : false;
+        #endregion
 
         private bool DbCreate()
         {
@@ -228,6 +230,17 @@ namespace A9MTE_Stys.Services
                 return false;
             }
         }
+
+        #endregion
+
+        #region HelperMethods
+        private string GetDataPath()
+        {
+            if (Device.RuntimePlatform == Device.UWP) return Path.Combine(ApplicationData.Current.LocalFolder.Path, "jokes.sqlite3");
+            else return Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "jokes.sqlite3");
+        }
+
+        private bool FileExists() => File.Exists(GetDataPath()) ? true : false;
 
         #endregion
     }

@@ -29,24 +29,40 @@
                    HorizontalOptions="Center"
                    FontSize="Large"
                    Visual="Material" />
-            <Stepper Visual="Material"
+            <OnPlatform x:TypeArguments="View">
+                <On Platform="Android">
+                    <Stepper Visual="Material"
                      Increment="1"
                      Minimum="{Binding Minimum, Mode=TwoWay}"
                      Maximum="{Binding Maximum, Mode=TwoWay}"
                      Value="{Binding LimitValue, Mode=TwoWay}"
-                     Margin="0, 0, 0, 5"/>
+                     HorizontalOptions="FillAndExpand"
+                     Margin="0, 0, 0, 5" />
+                </On>
+                <On Platform="UWP">
+                    <Stepper Visual="Material"
+                     Increment="1"
+                     Minimum="{Binding Minimum, Mode=TwoWay}"
+                     Maximum="{Binding Maximum, Mode=TwoWay}"
+                     Value="{Binding LimitValue, Mode=TwoWay}"
+                     HorizontalOptions="Center"
+                     Margin="0, 0, 0, 5" />
+                </On>
+            </OnPlatform>
             <StackLayout Orientation="Horizontal"
                          Margin="5, 0, 0, 0">
                 <Button Text="OK"
-                    Visual="Material" 
-                    HorizontalOptions="EndAndExpand"
-                    BackgroundColor="{StaticResource FaiUtbYellow}"
-                    Command="{Binding OnOKClickedCommand}"/>
+                        Visual="Material" 
+                        HorizontalOptions="EndAndExpand"
+                        BackgroundColor="{StaticResource FaiUtbYellow}"
+                        TextColor="White"
+                        Command="{Binding OnOKClickedCommand}"/>
                 <Button Text="Cancel"
-                    Visual="Material" 
-                    HorizontalOptions="End"
-                    BackgroundColor="{StaticResource FaiUtbYellow}"
-                    Command="{Binding OnCancelClickedCommand}" />
+                        Visual="Material" 
+                        HorizontalOptions="End"
+                        BackgroundColor="{StaticResource FaiUtbYellow}"
+                        TextColor="White"
+                        Command="{Binding OnCancelClickedCommand}" />
             </StackLayout>
         </StackLayout>
     </Frame>
