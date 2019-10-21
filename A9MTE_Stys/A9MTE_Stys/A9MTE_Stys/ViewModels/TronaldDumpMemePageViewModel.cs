@@ -3,10 +3,7 @@ using A9MTE_Stys.Interfaces;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -23,6 +20,7 @@ namespace A9MTE_Stys.ViewModels
 
         #region Commands
         public DelegateCommand OnAddMemeCommand { get; set; }
+        public DelegateCommand OnDeleteMemeCommand { get; set; }
         #endregion
 
         #region Properties
@@ -31,14 +29,23 @@ namespace A9MTE_Stys.ViewModels
         {
             get { return imageCollection; }
             set { SetProperty(ref imageCollection, value); }
+            
+        }
+
+        private int imageIndex;
+        public int ImageIndex
+        {
+            get { return imageIndex; }
+            set { SetProperty(ref imageIndex, value); }
         }
         #endregion
 
         #region Fields
-        private const int trumpImageCount = 5;
+        private int countLimit = 5;
         private string url;
         private const string apiErrorMessage = "API Url not valid!";
         private const string commonErrorMessage = "Not possible to get meme!";
+        private const string picNotFoundMessage = "Picture not found!";
         #endregion
 
         public TronaldDumpMemePageViewModel(ITronaldDumpService tronaldDumpService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
@@ -49,11 +56,14 @@ namespace A9MTE_Stys.ViewModels
             _toastMessage = toastMessage;
 
             OnAddMemeCommand = new DelegateCommand(AddMemeAsync, CanAddMemeAsync);
+            OnDeleteMemeCommand = new DelegateCommand(DeleteMeme, CanDeleteMeme);
 
-            GetMemeUrl();
+            ImageCollection.CollectionChanged += ImageCollection_CollectionChanged;
+
+            LoadSettings();
         }
 
-        #region ListViewHandling
+        #region CarouselHandling
         public async void AddMemeAsync()
         {
             try
@@ -63,9 +73,7 @@ namespace A9MTE_Stys.ViewModels
                     var value = await _tronaldDumpService.GetMemeAsync(url);
                     if (value != null)
                     {
-                        if (ImageCollection.Count == trumpImageCount) ImageCollection.RemoveAt(0);
                         ImageCollection.Add(value);
-                        
                     }
                     else
                     {
@@ -79,16 +87,41 @@ namespace A9MTE_Stys.ViewModels
 
         public bool CanAddMemeAsync()
         {
-            return IsConnected();
+            return IsConnected() && ImageCollection.Count < countLimit;
+        }
+
+        public void DeleteMeme()
+        {
+            try
+            {
+                ImageCollection.RemoveAt(ImageIndex);
+            }
+            catch { _toastMessage.ShowToast(picNotFoundMessage); }
+        }
+
+        public bool CanDeleteMeme() => ImageCollection.Count != 0 ? true : false;
+
+        private void ImageCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnAddMemeCommand.RaiseCanExecuteChanged();
+            OnDeleteMemeCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
+
+        #region Settings
+        private async void LoadSettings()
+        {
+            try
+            {
+                url = await _settingsService.LoadSettings(SettingsEnum.MemeUrl.ToString());
+                var limitString = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
+                countLimit = Convert.ToInt32(limitString);
+            }
+            catch { }
         }
         #endregion
 
         #region HelperMethods
-        public async void GetMemeUrl()
-        {
-            url = await _settingsService.LoadSettings(SettingsEnum.MemeUrl.ToString());
-        }
-
         private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
         #endregion
     }

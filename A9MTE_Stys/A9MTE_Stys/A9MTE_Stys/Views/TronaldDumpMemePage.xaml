@@ -13,6 +13,7 @@
              Title="Trump Memes">
     <StackLayout>
         <cards:CarouselView ItemsSource="{Binding ImageCollection}"
+                            SelectedIndex="{Binding ImageIndex, Mode=TwoWay}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
             <cards:CarouselView.ItemTemplate>
@@ -26,43 +27,30 @@
                                            BackgroundColor="Black"
                                            IsClippedToBounds="False"                                       
                                            HasShadow="False">
-                            <!-- BackgroundGradientStartColor="{StaticResource FaiUtbYellow}"
-                                           BackgroundGradientEndColor="LightSteelBlue" -->
                             <Image Source="{Binding .}" />
                         </yummy:PancakeView>
                     </ContentView>
                 </DataTemplate>
             </cards:CarouselView.ItemTemplate>
         </cards:CarouselView>
-        <!-- <ListView ItemsSource="{Binding ImageCollection}"
-                  Margin="5, 0, 5, 0"
-                  SeparatorVisibility="None"
-                  HasUnevenRows="True"
-                  SelectionMode="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        
-                        <yummy:PancakeView HasShadow="False"
-                                           CornerRadius="5"
-                                           Margin="5"
-                                           BorderColor="Black"
-                                           BorderThickness="5"             
-                                           BackgroundColor="Black">
-                            <Image Source="{Binding .}"/>
-                        </yummy:PancakeView>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView> -->
-        <Grid HeightRequest="50" MinimumHeightRequest="50" Margin="0, 0, 0, 10">
+        <StackLayout HeightRequest="50" 
+                     MinimumHeightRequest="50" 
+                     Orientation="Horizontal"
+                     Margin="0, 0, 0, 10">
             <Button Text="Add random meme" 
-            Visual="Material" 
-            Margin="10, 0, 10, 0"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand"
-            BackgroundColor="{StaticResource FaiUtbYellow}"
-            Command="{Binding OnAddMemeCommand}" />
-        </Grid>
+                    Visual="Material" 
+                    Margin="10, 0, 0, 0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnAddMemeCommand}" />
+            <Button Text="Delete meme" 
+                    Visual="Material" 
+                    Margin="0, 0, 10, 0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{StaticResource FaiUtbYellow}"
+                    Command="{Binding OnDeleteMemeCommand}" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -62,8 +62,7 @@ namespace A9MTE_Stys.ViewModels.PopUps
         public void Initialize(INavigationParameters parameters)
         {
             var limit = parameters["limit"] as string;
-            var key = parameters.Keys;
-            //LimitValue = parameters["limit"] as int;
+            if (!string.IsNullOrEmpty(limit)) LimitValue = Convert.ToInt32(limit);
         }
 
         private async void OKClickedAsync()

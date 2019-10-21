@@ -7,6 +7,9 @@
              x:Class="A9MTE_Stys.Views.SettingsPage"
              Title="Settings"
              Visual="Material">
+    <ContentPage.Resources>
+        <converters:StringToIntConverter x:Key="StringToIntConverter" />
+    </ContentPage.Resources>
     <TableView Intent="Settings" Visual="Material">
         <TableRoot>
             <!-- #region ChuckNorrisAPI -->
@@ -35,8 +38,8 @@
                           CommandParameter="{Binding Source={x:Reference MemeEntry}, Path=Detail}" />
                 <TextCell Text="Meme Count Limit"
                           x:Name="MemeLimit"
-                          Detail="{Binding MemeLimit, Mode=TwoWay, StringFormat='{0}'}"
-                          Command="{Binding ShowLimitPopUpCommand}" />
+                          Detail="{Binding MemeLimit, Mode=OneWay, Converter={StaticResource StringToIntConverter}}"
+                          Command="{Binding ShowLimitPopUpCommand}" />                
                 <ViewCell>
                     <Label Text="Quote Settings"
                            Margin="15, 0, 15, 0"

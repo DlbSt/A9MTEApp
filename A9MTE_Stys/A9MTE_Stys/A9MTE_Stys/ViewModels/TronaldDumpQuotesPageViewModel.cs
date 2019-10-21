@@ -52,7 +52,10 @@ namespace A9MTE_Stys.ViewModels
         private const string iconUrl = "trumpface.png";
         #endregion
 
-        public TronaldDumpQuotesPageViewModel(ITronaldDumpService tronaldDumpService, IDatabaseService databaseService, ISettingsService settingsService, IToastMessage toastMessage)
+        public TronaldDumpQuotesPageViewModel(ITronaldDumpService tronaldDumpService, 
+                                              IDatabaseService databaseService, 
+                                              ISettingsService settingsService, 
+                                              IToastMessage toastMessage)
         {
             _tronaldDumpService = tronaldDumpService;
             _databaseService = databaseService;

@@ -11,6 +11,7 @@ namespace A9MTE_Stys.ViewModels
     {
         #region Services
         private readonly ISettingsService _settingsService;
+        private readonly IDatabaseService _databaseService;
         #endregion
 
         #region Fields
@@ -20,9 +21,11 @@ namespace A9MTE_Stys.ViewModels
         private int memeLimit = 5;
         #endregion
 
-        public HomePageViewModel(ISettingsService settingsService)
+        public HomePageViewModel(ISettingsService settingsService, 
+                                 IDatabaseService databaseService)
         {
             _settingsService = settingsService;
+            _databaseService = databaseService;
 
             InitSettings();
         }
@@ -39,7 +42,7 @@ namespace A9MTE_Stys.ViewModels
             if (string.IsNullOrEmpty(quoteUrl)) await _settingsService.SaveSettings(SettingsEnum.QuoteUrl.ToString(), this.quoteUrl);
 
             var memeLimit = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
-            if (string.IsNullOrEmpty(memeLimit)) await _settingsService.SaveSettings(SettingsEnum.MemeLimit.ToString(), this.memeLimit.ToString());
+            if (string.IsNullOrEmpty(memeLimit) || memeLimit == 0.ToString()) await _settingsService.SaveSettings(SettingsEnum.MemeLimit.ToString(), this.memeLimit.ToString());
         }
     }
 }

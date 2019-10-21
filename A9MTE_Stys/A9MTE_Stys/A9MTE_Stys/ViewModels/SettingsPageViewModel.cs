@@ -132,7 +132,7 @@ namespace A9MTE_Stys.ViewModels
         {
             await _navigationService.NavigateAsync("TrumpLimitPage", new NavigationParameters
             {
-                { "limit", MemeLimit }
+                { "limit", MemeLimit.ToString() }
             });
         }
         #endregion
