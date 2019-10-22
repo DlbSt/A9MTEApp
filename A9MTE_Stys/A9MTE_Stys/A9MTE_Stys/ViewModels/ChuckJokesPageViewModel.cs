@@ -1,4 +1,5 @@
 ﻿using A9MTE_Stys.Enums;
+using A9MTE_Stys.Extensions;
 using A9MTE_Stys.Interfaces;
 using A9MTE_Stys.Model;
 using Prism.Commands;
@@ -113,7 +114,7 @@ namespace A9MTE_Stys.ViewModels
 
             UpdateBindedCollection();
 
-            if (!IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
+            if (!ExtensionMethods.IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
         }
 
         #region ListViewHandling
@@ -203,7 +204,7 @@ namespace A9MTE_Stys.ViewModels
 
             if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.DeleteJoke(joke);
         }
-        public bool CanAddJokeAsync() => IsConnected();
+        public bool CanAddJokeAsync() => ExtensionMethods.IsConnected();
         #endregion
 
         #region HelperMethods
@@ -211,8 +212,6 @@ namespace A9MTE_Stys.ViewModels
         {
             url = await _settingsService.LoadSettings(SettingsEnum.JokeUrl.ToString());
         }
-        private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
-
         #endregion
     }
 }

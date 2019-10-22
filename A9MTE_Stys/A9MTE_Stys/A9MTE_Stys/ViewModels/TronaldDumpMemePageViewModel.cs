@@ -1,9 +1,12 @@
 ﻿using A9MTE_Stys.Enums;
+using A9MTE_Stys.Extensions;
 using A9MTE_Stys.Interfaces;
+using A9MTE_Stys.Model;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -87,7 +90,7 @@ namespace A9MTE_Stys.ViewModels
 
         public bool CanAddMemeAsync()
         {
-            return IsConnected() && ImageCollection.Count < countLimit;
+            return ExtensionMethods.IsConnected() && ImageCollection.Count < countLimit;
         }
 
         public void DeleteMeme()
@@ -122,7 +125,10 @@ namespace A9MTE_Stys.ViewModels
         #endregion
 
         #region HelperMethods
-        private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
+        public static ImageSource ByteArrayToImage(byte[] imageBytes)
+        {
+            return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
         #endregion
     }
 }

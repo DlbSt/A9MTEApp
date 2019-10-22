@@ -1,4 +1,5 @@
 ﻿using A9MTE_Stys.Enums;
+using A9MTE_Stys.Extensions;
 using A9MTE_Stys.Interfaces;
 using A9MTE_Stys.Model;
 using Prism.Commands;
@@ -79,7 +80,7 @@ namespace A9MTE_Stys.ViewModels
                 });
             }
 
-            if (!IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
+            if (!ExtensionMethods.IsConnected()) _toastMessage.ShowToast(notConnectedMessage);
         }
 
         #region ListViewHandling
@@ -122,7 +123,7 @@ namespace A9MTE_Stys.ViewModels
 
         public bool CanRequestQuote()
         {
-            return IsConnected();
+            return ExtensionMethods.IsConnected();
         }
 
         public async void ReadQuoteAsync(string quote)
@@ -157,8 +158,6 @@ namespace A9MTE_Stys.ViewModels
         {
             quoteUrl = await _settingsService.LoadSettings(SettingsEnum.QuoteUrl.ToString());
         }
-
-        private bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
         #endregion
     }
 }

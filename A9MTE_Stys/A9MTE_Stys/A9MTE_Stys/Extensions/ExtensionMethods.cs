@@ -1,8 +1,12 @@
-﻿using System;
+﻿using A9MTE_Stys.Model;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace A9MTE_Stys.Extensions
 {
@@ -20,5 +24,7 @@ namespace A9MTE_Stys.Extensions
                             .First()
                             .GetCustomAttribute<TAttribute>();
         }
+
+        public static bool IsConnected() => Connectivity.NetworkAccess == NetworkAccess.Internet;
     }
 }

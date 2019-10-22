@@ -7,13 +7,17 @@
              xmlns:res="clr-namespace:PanCardView.Resources;assembly=PanCardView"
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:converters="clr-namespace:A9MTE_Stys.Converters"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="A9MTE_Stys.Views.TronaldDumpMemePage"
              Visual="Material"
              Title="Trump Memes">
+    <ContentPage.Resources>
+        <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
+    </ContentPage.Resources>
     <StackLayout>
         <cards:CarouselView ItemsSource="{Binding ImageCollection}"
-                            SelectedIndex="{Binding ImageIndex, Mode=TwoWay}"
+                            SelectedIndex="{Binding ImageIndex, Mode=TwoWay}"                        
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
             <cards:CarouselView.ItemTemplate>
