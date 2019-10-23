@@ -7,6 +7,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -27,8 +28,8 @@ namespace A9MTE_Stys.ViewModels
         #endregion
 
         #region Properties
-        private ObservableCollection<ImageSource> imageCollection = new ObservableCollection<ImageSource>();
-        public ObservableCollection<ImageSource> ImageCollection
+        private ObservableCollection<MemeDbItem> imageCollection = new ObservableCollection<MemeDbItem>();
+        public ObservableCollection<MemeDbItem> ImageCollection
         {
             get { return imageCollection; }
             set { SetProperty(ref imageCollection, value); }
@@ -63,6 +64,13 @@ namespace A9MTE_Stys.ViewModels
 
             ImageCollection.CollectionChanged += ImageCollection_CollectionChanged;
 
+            var dbJokes = _databaseService.GetMemes();
+
+            if (dbJokes != null)
+            {
+                foreach (var item in dbJokes) ImageCollection.Add(item);
+            }
+
             LoadSettings();
         }
 
@@ -76,7 +84,18 @@ namespace A9MTE_Stys.ViewModels
                     var value = await _tronaldDumpService.GetMemeAsync(url);
                     if (value != null)
                     {
-                        ImageCollection.Add(value);
+                        var id = 1;
+
+                        if (ImageCollection.Count > 0) id = ImageCollection.Last().Id + 1;
+
+                        var meme = new MemeDbItem
+                        {
+                            Id = id,
+                            Image = value
+                        };
+
+                        ImageCollection.Add(meme);
+                        if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP) await _databaseService.AddMeme(meme);
                     }
                     else
                     {
@@ -93,10 +112,11 @@ namespace A9MTE_Stys.ViewModels
             return ExtensionMethods.IsConnected() && ImageCollection.Count < countLimit;
         }
 
-        public void DeleteMeme()
+        public async void DeleteMeme()
         {
             try
             {
+                await _databaseService.DeleteMeme(ImageCollection[ImageIndex]);
                 ImageCollection.RemoveAt(ImageIndex);
             }
             catch { _toastMessage.ShowToast(picNotFoundMessage); }

@@ -5,6 +5,8 @@ using A9MTE_Stys.Model;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
@@ -45,6 +47,17 @@ namespace A9MTE_Stys.ViewModels
             get { return quote; }
             set { SetProperty(ref quote, value); }
         }
+
+        private MemeDbItem meme = new MemeDbItem
+        {
+            Id = 0,
+            Image = new byte[1] { 1 }
+        };
+        public MemeDbItem Meme
+        {
+            get { return meme; }
+            set { SetProperty(ref meme, value); }
+        }
         #endregion
 
         #region Fields
@@ -63,6 +76,8 @@ namespace A9MTE_Stys.ViewModels
             _databaseService = databaseService;
             _toastMessage = toastMessage;
 
+            //_databaseService.DeleteDatabase();
+
             var dbJoke = _databaseService.GetRandomJoke();
             if (dbJoke != null) Joke = dbJoke;
 
@@ -73,6 +88,13 @@ namespace A9MTE_Stys.ViewModels
                 Icon = dbQuote.Icon,
                 Id = dbQuote.Id,
                 Quote = dbQuote.Quote
+            };
+
+            var dbMeme = _databaseService.GetRandomMeme();
+            if (dbMeme != null) Meme = new MemeDbItem
+            {
+                Image = dbMeme.Image,
+                Id = dbMeme.Id
             };
 
             InitSettings();

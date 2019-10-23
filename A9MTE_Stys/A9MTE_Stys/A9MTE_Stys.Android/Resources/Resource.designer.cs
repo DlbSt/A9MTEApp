@@ -11972,7 +11972,10 @@ namespace A9MTE_Stys.Droid
 			public const int trumpface = 2131165509;
 			
 			// aapt resource value: 0x7F070146
-			public const int utbikona400 = 2131165510;
+			public const int trumpnotfound = 2131165510;
+			
+			// aapt resource value: 0x7F070147
+			public const int utbikona400 = 2131165511;
 			
 			static Drawable()
 			{

@@ -18,6 +18,11 @@ namespace A9MTE_Stys.Interfaces
         QuoteDbItem GetRandomQuote();
         Task<bool> DeleteQuote(QuoteDbItem quote);
 
+        Task<bool> AddMeme(MemeDbItem meme);
+        List<MemeDbItem> GetMemes();
+        MemeDbItem GetRandomMeme();
+        Task<bool> DeleteMeme(MemeDbItem meme);
+
         bool DeleteDatabase();
     }
 }

@@ -7,7 +7,7 @@ namespace A9MTE_Stys.Model
 {
     public class MemeDbItem
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
         public byte[] Image { get; set; }
     }

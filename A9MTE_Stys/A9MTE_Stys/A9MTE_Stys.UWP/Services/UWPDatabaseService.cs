@@ -29,6 +29,7 @@ namespace A9MTE_Stys.UWP.Services
                 {
                     db.CreateTable<JokeItem>();
                     db.CreateTable<QuoteDbItem>();
+                    db.CreateTable<MemeDbItem>();
                     return true;
                 }
             }
@@ -234,6 +235,95 @@ namespace A9MTE_Stys.UWP.Services
 
         #endregion
 
+        #region ChuckMemes
+
+        public async Task<bool> AddMeme(MemeDbItem meme)
+        {
+            if (FileExists())
+            {
+                try
+                {
+                    using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadWrite |
+                                                                        SQLiteOpenFlags.FullMutex))
+                    {
+                        await Task.Run(() => db.Insert(meme));
+                        return true;
+                    }
+                }
+                catch { return false; }
+            }
+            else
+            {
+                if (DbCreate())
+                {
+                    try
+                    {
+                        using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadWrite |
+                                                                            SQLiteOpenFlags.FullMutex))
+                        {
+                            await Task.Run(() => db.Insert(meme));
+                            return true;
+                        }
+                    }
+                    catch { return false; }
+                }
+                else return false;
+            }
+        }
+
+        public List<MemeDbItem> GetMemes()
+        {
+            if (FileExists())
+            {
+                try
+                {
+                    using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
+                    {
+                        return db.Table<MemeDbItem>().ToList();
+                    }
+                }
+                catch { return null; }
+            }
+            else return null;
+        }
+
+        public MemeDbItem GetRandomMeme()
+        {
+            if (FileExists())
+            {
+                try
+                {
+                    using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadOnly))
+                    {
+                        var vals = db.Table<MemeDbItem>().ToList();
+                        var count = vals.Count;
+                        return vals[random.Next(0, count - 1)];
+                    }
+                }
+                catch { return null; }
+            }
+            else return null;
+        }
+
+        public async Task<bool> DeleteMeme(MemeDbItem meme)
+        {
+            try
+            {
+                using (var db = new SQLiteConnection(GetDataPath(), SQLiteOpenFlags.ReadWrite |
+                                                                    SQLiteOpenFlags.FullMutex))
+                {
+                    await Task.Run(() => db.Delete(meme));
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        #endregion
+
         #region HelperMethods
         private string GetDataPath()
         {
@@ -241,7 +331,6 @@ namespace A9MTE_Stys.UWP.Services
         }
 
         private bool FileExists() => File.Exists(GetDataPath()) ? true : false;
-
         #endregion
     }
 }

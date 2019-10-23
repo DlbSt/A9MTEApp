@@ -41,7 +41,7 @@ namespace A9MTE_Stys.Services
             }
         }
 
-        public async Task<ImageSource> GetMemeAsync(string memeUrl)
+        public async Task<byte[]> GetMemeAsync(string memeUrl)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(0, 0, 1);
@@ -61,19 +61,12 @@ namespace A9MTE_Stys.Services
             if (response.IsSuccessStatusCode)
             {
                 var message = await response.Content.ReadAsByteArrayAsync();
-                return ByteArrayToImage(message);
+                return message;
             }
             else
             {
                 return null;
             }
         }
-
-        #region HelperMethods
-        private ImageSource ByteArrayToImage(byte[] imageBytes)
-        {
-            return ImageSource.FromStream(() => new MemoryStream(imageBytes));
-        }
-        #endregion
     }
 }

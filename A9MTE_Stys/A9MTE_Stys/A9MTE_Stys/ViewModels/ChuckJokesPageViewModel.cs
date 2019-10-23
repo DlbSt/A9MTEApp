@@ -103,8 +103,6 @@ namespace A9MTE_Stys.ViewModels
 
             LoadUrl();
 
-            //_databaseService.DeleteDatabase();
-
             var dbJokes = _databaseService.GetJokes();
 
             if (dbJokes != null)

@@ -15,120 +15,136 @@
             <converters:CategoryEnumToStringConverter x:Key="CategoryEnumToStringConverter" />
             <converters:TrumpHeaderConverter x:Key="TrumpHeaderConverter" />
             <converters:TagsToStringConverter x:Key="TagsToStringConverter" />
+            <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout HorizontalOptions="FillAndExpand"
-                 VerticalOptions="Start">
-        <Label Text="Random Joke"
-               Margin="10, 10, 10, 0"
-               FontSize="Large"
-               FontAttributes="Bold" />
-        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="CenterAndExpand"
-                           Margin="10, 0, 10, 0"
-                           BackgroundGradientAngle="90"
-                           IsClippedToBounds="False"                                       
-                           HasShadow="False">
-            <yummy:PancakeView.BackgroundGradientStops>
-                <yummy:GradientStopCollection>
-                    <yummy:GradientStop Color="Black" 
-                                        Offset="0" />
-                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" 
-                                        Offset="1" />
-                </yummy:GradientStopCollection>
-            </yummy:PancakeView.BackgroundGradientStops>
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" 
-                             Margin="10, 10, 10, 0">
-                    <Image Source="{Binding Joke.Icon}" />
-                    <StackLayout Orientation="Vertical" 
-                                 Spacing="2">
-                        <Label Text="{Binding Joke.Id, Converter={StaticResource JokeHeaderConverter}}"                                   
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"
-                               FontAttributes="Bold"
-                               FontSize="Title"
-                               TextColor="White"  
-                               Margin="10, 0, 0, 0"/>
-                        <Label HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"
-                               FontSize="Subtitle"
-                               TextColor="White"         
-                               Margin="10, 0, 0, 0">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Category: " 
-                                          FontSize="Subtitle" 
-                                          FontAttributes="Bold"/>
-                                    <Span Text="{Binding Joke.Category, Converter={StaticResource CategoryEnumToStringConverter}}" 
-                                          FontSize="Subtitle" 
-                                          FontAttributes="None"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+    <ScrollView>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Start">
+            <Label Text="Random Joke"
+                   Margin="10, 10, 10, 0"
+                   FontSize="Large"
+                   FontAttributes="Bold" />
+            <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10, 0, 10, 0"
+                               BackgroundGradientAngle="90"
+                               IsClippedToBounds="False"                                       
+                               HasShadow="False">
+                <yummy:PancakeView.BackgroundGradientStops>
+                    <yummy:GradientStopCollection>
+                        <yummy:GradientStop Color="Black" 
+                                            Offset="0" />
+                        <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" 
+                                            Offset="1" />
+                    </yummy:GradientStopCollection>
+                </yummy:PancakeView.BackgroundGradientStops>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" 
+                                 Margin="10, 10, 10, 0">
+                        <Image Source="{Binding Joke.Icon}" />
+                        <StackLayout Orientation="Vertical" 
+                                     Spacing="2">
+                            <Label Text="{Binding Joke.Id, Converter={StaticResource JokeHeaderConverter}}"                                   
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="Title"
+                                   TextColor="White"  
+                                   Margin="10, 0, 0, 0"/>
+                            <Label HorizontalOptions="Start"
+                                   VerticalOptions="Start"
+                                   FontAttributes="Bold"
+                                   FontSize="Subtitle"
+                                   TextColor="White"         
+                                   Margin="10, 0, 0, 0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Category: " 
+                                              FontSize="Subtitle" 
+                                              FontAttributes="Bold"/>
+                                        <Span Text="{Binding Joke.Category, Converter={StaticResource CategoryEnumToStringConverter}}" 
+                                              FontSize="Subtitle" 
+                                              FontAttributes="None"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding Joke.Joke}"
-                       TextColor="White"
-                       HorizontalOptions="StartAndExpand"
-                       VerticalOptions="CenterAndExpand"
-                       Margin="10, 0, 10, 10"/>
-            </StackLayout>
-        </yummy:PancakeView>
-        <Label Text="Random Quote"
-               Margin="10, 10, 10, 0"
-               FontSize="Large"
-               FontAttributes="Bold" />
-        <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
-                           HorizontalOptions="FillAndExpand"
+                    <Label Text="{Binding Joke.Joke}"
+                           TextColor="White"
+                           HorizontalOptions="StartAndExpand"
                            VerticalOptions="CenterAndExpand"
-                           Margin="10, 0, 10, 0"
-                           BackgroundGradientAngle="90"
-                           IsClippedToBounds="False"                                       
-                           HasShadow="False">
-            <yummy:PancakeView.BackgroundGradientStops>
-                <yummy:GradientStopCollection>
-                    <yummy:GradientStop Color="Black" Offset="0" />
-                    <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
-                </yummy:GradientStopCollection>
-            </yummy:PancakeView.BackgroundGradientStops>
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
-                    <Image Source="{Binding Quote.Icon}"
-                                               HeightRequest="60"
-                                               WidthRequest="60"/>
-                    <StackLayout Orientation="Vertical" Spacing="2">
-                        <Label Text="{Binding Quote.Id, Converter={StaticResource TrumpHeaderConverter}}"                                   
-                                               HorizontalOptions="Start"
-                                               VerticalOptions="Center"
-                                               FontAttributes="Bold"
-                                               FontSize="Title"
-                                               TextColor="White"  
-                                               Margin="10, 0, 0, 0"/>
-                        <Label                                  
-                                               HorizontalOptions="Start"
-                                               VerticalOptions="Start"
-                                               FontAttributes="Bold"
-                                               FontSize="Subtitle"
-                                               TextColor="White"         
-                                               Margin="10, 0, 0, 0">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Tags: " FontSize="Subtitle" FontAttributes="Bold"/>
-                                    <Span Text="{Binding Quote.Tags, Converter={StaticResource TagsToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
+                           Margin="10, 0, 10, 10"/>
                 </StackLayout>
-                <Label Text="{Binding Quote.Quote}"
-                       TextColor="White"
-                       HorizontalOptions="StartAndExpand"
-                       VerticalOptions="CenterAndExpand"
-                       Margin="10, 0, 10, 10"/>
-            </StackLayout>
-        </yummy:PancakeView>
-    </StackLayout>
+            </yummy:PancakeView>
+            <Label Text="Random Quote"
+                   Margin="10, 10, 10, 0"
+                   FontSize="Large"
+                   FontAttributes="Bold" />
+            <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10, 0, 10, 0"
+                               BackgroundGradientAngle="90"
+                               IsClippedToBounds="False"                                       
+                               HasShadow="False">
+                <yummy:PancakeView.BackgroundGradientStops>
+                    <yummy:GradientStopCollection>
+                        <yummy:GradientStop Color="Black" Offset="0" />
+                        <yummy:GradientStop Color="{StaticResource FaiUtbYellow}" Offset="1" />
+                    </yummy:GradientStopCollection>
+                </yummy:PancakeView.BackgroundGradientStops>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0">
+                        <Image Source="{Binding Quote.Icon}"
+                               HeightRequest="60"
+                               WidthRequest="60"/>
+                        <StackLayout Orientation="Vertical" Spacing="2">
+                            <Label Text="{Binding Quote.Id, Converter={StaticResource TrumpHeaderConverter}}"                                   
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="Title"
+                                   TextColor="White"  
+                                   Margin="10, 0, 0, 0"/>
+                            <Label HorizontalOptions="Start"
+                                   VerticalOptions="Start"
+                                   FontAttributes="Bold"
+                                   FontSize="Subtitle"
+                                   TextColor="White"         
+                                   Margin="10, 0, 0, 0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Tags: " FontSize="Subtitle" FontAttributes="Bold"/>
+                                        <Span Text="{Binding Quote.Tags, Converter={StaticResource TagsToStringConverter}}" FontSize="Subtitle" FontAttributes="None"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <Label Text="{Binding Quote.Quote}"
+                           TextColor="White"
+                           HorizontalOptions="StartAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Margin="10, 0, 10, 10"/>
+                </StackLayout>
+            </yummy:PancakeView>
+            <Label Text="Random Meme"
+                   Margin="10, 10, 10, 0"
+                   FontSize="Large"
+                   FontAttributes="Bold" />
+            <yummy:PancakeView CornerRadius="5, 5, 5, 5" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Margin="10, 0, 10, 5"
+                               BackgroundGradientAngle="90"
+                               BackgroundColor="Black"
+                               IsClippedToBounds="False"                                       
+                               HasShadow="False">
+                <Image Source="{Binding Meme.Image, Mode=OneWay, Converter={StaticResource ByteToImageSourceConverter}}" />
+            </yummy:PancakeView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
