@@ -75,6 +75,12 @@ namespace A9MTE_Stys.ViewModels.PopUps
         #region Navigation
         public void Initialize(INavigationParameters parameters)
         {
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                htmlHeader = @"<html><body><font face=Arial>";
+                htmlFooter = @"</font></body></html>";
+            }
+
             if (LicenseEnum.CardView.GetAttribute<DisplayAttribute>().Name == parameters["libraryname"] as string) HtmlText = htmlHeader +
                                                                                                                               cardViewHeader +
                                                                                                                               mitLicenseTitle +

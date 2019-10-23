@@ -90,6 +90,7 @@ namespace A9MTE_Stys.ViewModels
             {
                 if (!string.IsNullOrEmpty(quoteUrl))
                 {
+                    Scroll = ScrollEnum.Scroll;
                     var quotes = await _tronaldDumpService.GetQuoteAsync(quoteUrl);
 
                     if (quotes != null)

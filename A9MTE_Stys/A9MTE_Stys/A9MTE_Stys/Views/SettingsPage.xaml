@@ -9,6 +9,8 @@
              Visual="Material">
     <ContentPage.Resources>
         <converters:StringToIntConverter x:Key="StringToIntConverter" />
+
+        <x:String x:Key="ServerAddress">Server Address</x:String>
     </ContentPage.Resources>
     <TableView Intent="Settings" Visual="Material">
         <TableRoot>
@@ -31,15 +33,15 @@
                            FontSize="Small"
                            VerticalTextAlignment="Center" />
                 </ViewCell>
-                <TextCell Text="Server Address"
-                          x:Name="MemeEntry"
-                          Detail="{Binding MemeUrl, Mode=TwoWay}" 
-                          Command="{Binding ShowMemeAddressPopUpCommand}"
-                          CommandParameter="{Binding Source={x:Reference MemeEntry}, Path=Detail}" />
+                <TextCell Text="{StaticResource ServerAddress}"                           
+                           x:Name="MemeEntry"
+                           Detail="{Binding MemeUrl, Mode=TwoWay}" 
+                           Command="{Binding ShowMemeAddressPopUpCommand}"
+                           CommandParameter="{Binding Source={x:Reference MemeEntry}, Path=Detail}" />
                 <TextCell Text="Meme Count Limit"
-                          x:Name="MemeLimit"
-                          Detail="{Binding MemeLimit, Mode=OneWay, Converter={StaticResource StringToIntConverter}}"
-                          Command="{Binding ShowLimitPopUpCommand}" />                
+                    x:Name="MemeLimit"
+                    Detail="{Binding MemeLimit, Mode=OneWay, Converter={StaticResource StringToIntConverter}}"
+                    Command="{Binding ShowLimitPopUpCommand}" />                
                 <ViewCell>
                     <Label Text="Quote Settings"
                            Margin="15, 0, 15, 0"
@@ -47,6 +49,7 @@
                            VerticalTextAlignment="Center" />
                 </ViewCell>
                 <TextCell Text="Server Address"
+                          
                           x:Name="QuoteEntry"
                           Detail="{Binding QuoteUrl, Mode=TwoWay}" 
                           Command="{Binding ShowQuoteAddressPopUpCommand}"
@@ -56,10 +59,28 @@
             <!-- #region Help -->
             <TableSection Title="Help"
                           TextColor="{StaticResource FaiUtbYellow}">
-                <TextCell Text="Licensing"
-                          Command="{Binding NavigateToLicensingPageCommand}"/>
-                <TextCell Text="About"
-                          Command="{Binding ShowAboutPopUpCommand}"/>
+                <OnPlatform x:TypeArguments="TextCell">
+                    <On Platform="Android">
+                        <TextCell Text="Licensing"
+                                  Command="{Binding NavigateToLicensingPageCommand}" />
+                    </On>
+                    <On Platform="UWP">
+                        <TextCell Text="Licensing"
+                                  Detail="Information about used libraries"
+                                  Command="{Binding NavigateToLicensingPageCommand}" />
+                    </On>
+                </OnPlatform>
+                <OnPlatform x:TypeArguments="TextCell">
+                    <On Platform="Android">
+                        <TextCell Text="About"
+                                  Command="{Binding ShowAboutPopUpCommand}"/>
+                    </On>
+                    <On Platform="UWP">
+                        <TextCell Text="About"
+                                  Detail="Information about app"
+                                  Command="{Binding ShowAboutPopUpCommand}"/>
+                    </On>
+                </OnPlatform>
             </TableSection>
             <!-- #endregion -->
         </TableRoot>

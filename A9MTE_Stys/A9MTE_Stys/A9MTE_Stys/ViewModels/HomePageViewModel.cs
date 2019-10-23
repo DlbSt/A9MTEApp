@@ -48,11 +48,7 @@ namespace A9MTE_Stys.ViewModels
             set { SetProperty(ref quote, value); }
         }
 
-        private MemeDbItem meme = new MemeDbItem
-        {
-            Id = 0,
-            Image = new byte[1] { 1 }
-        };
+        private MemeDbItem meme;
         public MemeDbItem Meme
         {
             get { return meme; }
@@ -89,7 +85,7 @@ namespace A9MTE_Stys.ViewModels
                 Id = dbQuote.Id,
                 Quote = dbQuote.Quote
             };
-
+            
             var dbMeme = _databaseService.GetRandomMeme();
             if (dbMeme != null) Meme = new MemeDbItem
             {
@@ -116,6 +112,15 @@ namespace A9MTE_Stys.ViewModels
 
             var memeLimit = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
             if (string.IsNullOrEmpty(memeLimit) || memeLimit == 0.ToString()) await _settingsService.SaveSettings(SettingsEnum.MemeLimit.ToString(), this.memeLimit.ToString());
+        }
+
+        private byte[] CreateNewByteArray()
+        {
+            var bytes = new byte[16384];
+
+            for (int i = 0; i < bytes.Length; i++) bytes[i] = 1;
+
+            return bytes;
         }
         #endregion
     }
