@@ -57,14 +57,14 @@ namespace A9MTE_Stys.UWP
 
                 Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
                 Rg.Plugins.Popup.Popup.Init();
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
                 Xamarin.Forms.Forms.Init(e, Rg.Plugins.Popup.Popup.GetExtraAssemblies());
                 var rendererAssemblies = new[]
                 {
-                    typeof(ImageCircleRenderer).GetTypeInfo().Assembly
+                    typeof(ImageCircleRenderer).GetTypeInfo().Assembly,
+                    typeof(PancakeViewRenderer).GetTypeInfo().Assembly
                 };
                 Xamarin.Forms.Forms.Init(e, rendererAssemblies);
-                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-                PancakeViewRenderer.Init();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

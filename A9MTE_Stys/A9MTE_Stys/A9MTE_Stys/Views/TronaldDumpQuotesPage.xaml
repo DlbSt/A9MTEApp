@@ -189,6 +189,7 @@
         <Grid HeightRequest="50" MinimumHeightRequest="50" Margin="0, 0, 0, 10">
             <Button Visual="Material"
                     Text="Request new quote"
+                    TextColor="White"
                     Margin="10, 0, 10, 0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"

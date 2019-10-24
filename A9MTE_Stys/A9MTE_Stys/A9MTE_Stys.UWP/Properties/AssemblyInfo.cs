@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("A9MTE_Stys.UWP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A9MTE Term Project - Dalibor Stys")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("FAI UTB")]
 [assembly: AssemblyProduct("A9MTE_Stys.UWP")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © Dalibor Stys 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
