@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace A9MTE_Stys.Droid
 {
-    [Activity(Label = "A9MTE - Dalibor Stys", Icon = "@mipmap/ic_launcher", Theme = "@style/splashscreen", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "A9MTE - Dalibor Stys", Icon = "@mipmap/icon", Theme = "@style/splashscreen", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
         protected override void OnResume()

@@ -23,7 +23,7 @@
                 <CollectionView ItemsSource="{Binding Quotes}"
                                 Margin="10, 10, 10, 0"
                                 ItemsUpdatingScrollMode="KeepItemsInView"
-                                VerticalScrollBarVisibility="Always"                 
+                                VerticalScrollBarVisibility="Always"                                        
                                 SelectedItem="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

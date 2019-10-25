@@ -49,6 +49,7 @@
                 <CollectionView ItemsSource="{Binding FilteredCollection}"
                         Margin="10, 0, 10, 0"
                         ItemsUpdatingScrollMode="KeepLastItemInView"
+                        VerticalScrollBarVisibility="Always"        
                         SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

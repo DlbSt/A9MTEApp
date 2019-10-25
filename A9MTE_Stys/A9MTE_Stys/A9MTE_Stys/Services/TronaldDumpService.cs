@@ -16,7 +16,7 @@ namespace A9MTE_Stys.Services
         public async Task<TrumpQuote> GetQuoteAsync(string quoteUrl)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(0, 0, 3);
+            httpClient.Timeout = new TimeSpan(0, 0, 5);
             var uri = new Uri(string.Format(quoteUrl, string.Empty));
 
             HttpResponseMessage response = null;
@@ -44,7 +44,7 @@ namespace A9MTE_Stys.Services
         public async Task<byte[]> GetMemeAsync(string memeUrl)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(0, 0, 1);
+            httpClient.Timeout = new TimeSpan(0, 0, 3);
             var uri = new Uri(string.Format(memeUrl, string.Empty));
 
             HttpResponseMessage response = null;

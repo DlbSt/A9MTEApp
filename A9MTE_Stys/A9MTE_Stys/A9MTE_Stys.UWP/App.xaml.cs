@@ -56,14 +56,14 @@ namespace A9MTE_Stys.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-                Rg.Plugins.Popup.Popup.Init();
-                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-                Xamarin.Forms.Forms.Init(e, Rg.Plugins.Popup.Popup.GetExtraAssemblies());
-                var rendererAssemblies = new[]
+                var rendererAssemblies = new List<Assembly>()
                 {
                     typeof(ImageCircleRenderer).GetTypeInfo().Assembly,
                     typeof(PancakeViewRenderer).GetTypeInfo().Assembly
                 };
+                rendererAssemblies.AddRange(Rg.Plugins.Popup.Popup.GetExtraAssemblies());
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+                Rg.Plugins.Popup.Popup.Init();
                 Xamarin.Forms.Forms.Init(e, rendererAssemblies);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

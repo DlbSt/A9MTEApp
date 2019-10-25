@@ -14,7 +14,7 @@ namespace A9MTE_Stys.Services
         public async Task<Joke> GetJokeAsync(string url, string category)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(0, 0, 1);
+            httpClient.Timeout = new TimeSpan(0, 0, 3);
             var uri = new Uri(string.Format(url + category, string.Empty));
 
             HttpResponseMessage response = null;

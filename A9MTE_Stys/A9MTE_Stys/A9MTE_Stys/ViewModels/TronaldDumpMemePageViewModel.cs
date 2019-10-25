@@ -139,6 +139,9 @@ namespace A9MTE_Stys.ViewModels
                 url = await _settingsService.LoadSettings(SettingsEnum.MemeUrl.ToString());
                 var limitString = await _settingsService.LoadSettings(SettingsEnum.MemeLimit.ToString());
                 countLimit = Convert.ToInt32(limitString);
+
+                OnAddMemeCommand.RaiseCanExecuteChanged();
+                OnDeleteMemeCommand.RaiseCanExecuteChanged();
             }
             catch { }
         }
