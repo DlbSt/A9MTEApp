@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CardsView" Version="2.3.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Prism.Plugin.Popups" Version="7.2.0.573" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     <PackageReference Include="SQLitePCLRaw.bundle_sqlcipher" Version="1.1.14" />
